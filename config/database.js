@@ -1,7 +1,7 @@
 const crypto = require('crypto').randomBytes(256).toString('hex');
 
 module.exports = {
-    uri: '',
+    uri: '' + this.db,
     secret: crypto,
-    db: ''
+    db: 'angular'
 }
