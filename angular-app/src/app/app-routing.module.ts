@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 
 const appRoutes: Routes = [
     {
@@ -14,7 +15,7 @@ const appRoutes: Routes = [
     },
     {
       path: '**',
-      component: HomeComponent,
+      component: ErrorNotFoundComponent,
     }
   ];
 
