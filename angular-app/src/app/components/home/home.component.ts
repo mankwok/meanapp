@@ -1,13 +1,10 @@
-import { Component, OnInit, HostBinding  } from '@angular/core';
-import { moveInLeft, fallIn } from '../../router.animations';
+import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from '../../services/page-title.service'
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  animations: [moveInLeft()],
-  host: {'[@moveInLeft]': ''}
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 

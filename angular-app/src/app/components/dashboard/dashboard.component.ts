@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { moveInLeft, fallIn } from '../../router.animations';
 import { PageTitleService } from '../../services/page-title.service'
+
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
-  animations: [moveInLeft()],
-  host: {'[@moveInLeft]': ''}
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
