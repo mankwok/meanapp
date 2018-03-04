@@ -1,40 +1,32 @@
-<ng-progress  
-  [positionUsing]="'marginLeft'"
-  [color]="'#ff4081'"
-  [showSpinner]="false" 
-  [thick]="true" 
-  [ease]="'easeInSine'">
+<ng-progress [positionUsing]="'marginLeft'" [color]="'#ff4081'" [showSpinner]="false" [thick]="true" [ease]="'easeInSine'">
 </ng-progress>
 
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" id="nav-layout">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout-title">{{pageTitle}}</span>
-      <div class="mdl-layout-spacer"></div>
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
-        mdl-textfield--floating-label mdl-textfield--align-right">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-          <i class="material-icons">search</i>
-        </label>
-        <div class="mdl-textfield__expandable-holder">
-          <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
-        </div>
+<nav class="navbar is-fixed-top is-link">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item brand-text" href="" routerLink="/">
+        Man Kwok's Site
+      </a>
+      <div id="burger-btn" class="navbar-burger burger" data-target="navbar">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Man Kwok's Site</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a class="mdl-navigation__link" href="" routerLink="/login" routerLinkActive="is-active">Login</a>
-      <a class="mdl-navigation__link" href="" routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
-      <a class="mdl-navigation__link" href="" routerLink="/todo" routerLinkActive="is-active">My Todo</a>
-      <a class="mdl-navigation__link" href="" routerLink="/useful" routerLinkActive="is-active">Useful stuffs</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-    <div class="page-content">
-      <router-outlet></router-outlet>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a class="navbar-item" href="" routerLink="/login" routerLinkActive="is-active">Login</a>
+        <a class="navbar-item" href="" routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
+        <a class="navbar-item" href="" routerLink="/todo" routerLinkActive="is-active">My Todo</a>
+        <a class="navbar-item" href="" routerLink="/useful" routerLinkActive="is-active">Useful stuffs</a>
+      </div>
     </div>
-  </main>
-</div>
+  </div>
+</nav>
+<section class="section">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</section>
