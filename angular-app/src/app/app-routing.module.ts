@@ -9,18 +9,22 @@ const appRoutes: Routes = [
     {
       path: '',
       component: HomeComponent,
+      data: { title: 'Man Kwok\'s Site' }
     },
     {
       path: 'dashboard',
       component: DashboardComponent,
+      data: { title: 'Dashboard' }
     },
     {
       path: 'login',
       component: LoginComponent,
+      data: { title: 'Login' }
     },
     {
       path: '**',
       component: ErrorNotFoundComponent,
+      data: { title: '404 Not Found' }
     }
   ];
 

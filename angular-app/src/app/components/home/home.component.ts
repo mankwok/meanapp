@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PageTitleService } from '../../services/page-title.service'
 
 @Component({
   selector: 'app-home',
@@ -8,11 +7,10 @@ import { PageTitleService } from '../../services/page-title.service'
 })
 export class HomeComponent implements OnInit {
 
-  pageTitle:string = 'Home';
-  constructor(private data: PageTitleService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.data.changeTitle(this.pageTitle)
+    
   }
 
 }
