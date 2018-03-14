@@ -59,5 +59,3 @@ typings/
 
 # eslint config
 .eslintrc.json
-
-/config/database.js
