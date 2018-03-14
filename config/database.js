@@ -5,8 +5,8 @@ module.exports = {
     secret: crypto,
     option: {
         auth: {
-            user: '',
-            password: ''
+            user: 'abc',
+            password: 'abc'
         }
     }
 }
