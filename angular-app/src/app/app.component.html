@@ -1,31 +1,8 @@
 <ng-progress [positionUsing]="'marginLeft'" [color]="'#ff4081'" [showSpinner]="false" [thick]="true" [ease]="'easeInSine'">
 </ng-progress>
 
-<nav class="navbar is-fixed-top is-link">
-  <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item brand-text" href="" routerLink="/">
-        Man Kwok's Site
-      </a>
-      <div id="burger-btn" class="navbar-burger burger" data-target="navbar">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+<app-navbar></app-navbar>
 
-    <div id="navbar" class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="navbar-item" href="" routerLink="/login" routerLinkActive="is-active">Login</a>
-        <a class="navbar-item" href="" routerLink="/profile" routerLinkActive="is-active">Profile</a>
-        <a class="navbar-item" href="" routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
-        <a class="navbar-item" href="" routerLink="/todo" routerLinkActive="is-active">My Todo</a>
-        <a class="navbar-item" href="" routerLink="/useful" routerLinkActive="is-active">Useful stuffs</a>
-      </div>
-    </div>
-  </div>
-</nav>
 <section class="section">
   <div class="container">
     <router-outlet></router-outlet>

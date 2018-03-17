@@ -21,6 +21,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import 'rxjs/add/operator/mergeMap';
     DashboardComponent,
     ErrorNotFoundComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
