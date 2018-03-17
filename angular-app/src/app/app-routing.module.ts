@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 
 const appRoutes: Routes = [
@@ -20,6 +21,11 @@ const appRoutes: Routes = [
       path: 'login',
       component: LoginComponent,
       data: { title: 'Login' }
+    },
+    {
+      path: 'profile',
+      component: ProfileComponent,
+      data: { title: 'Profile' }
     },
     {
       path: '**',
