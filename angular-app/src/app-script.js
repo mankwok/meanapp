@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
 
   // Get all "navbar-burger" elements
   let $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let $navbar = document.getElementById("navbar");
         let $burgerBtn = document.getElementById("burger-btn");
-        let burgerBtnExpended = $burgerBtn.dataset.expended;
 
         $navbar.classList.remove('is-active');
         $burgerBtn.classList.remove('is-active');
@@ -36,4 +35,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-});
+});*/
