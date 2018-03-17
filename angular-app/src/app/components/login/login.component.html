@@ -1,19 +1,25 @@
-<div class="mdl-grid">
-  <div class="mdl-layout-spacer"></div>
-  <div class="mdl-cell mdl-cell--4-col">
-    <form action="#">
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="username">
-        <label class="mdl-textfield__label" for="username">Username</label>
-      </div>
-      <br/>
-      <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="password" id="password">
-        <label class="mdl-textfield__label" for="password">Password</label>
-      </div>
-      <br/>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" name="action">Login</button>
-    </form>
+<div *ngIf="loginError" class="notification is-danger">{{message}}</div>
+
+<form [formGroup]="form" (submit)="onLoginSubmit()">
+  <div class="field">
+    <label class="label">Username</label>
+    <div class="control has-icons-left">
+      <input class="input" type="text" name="username" formControlName="username" placeholder="Username">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+    </div>
   </div>
-  <div class="mdl-layout-spacer"></div>
-</div>
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control has-icons-left">
+      <input class="input" type="password" name="password" formControlName="password" placeholder="Password">
+      <span class="icon is-small is-left">
+        <i class="fas fa-key"></i>
+      </span>
+    </div>
+  </div>
+  <div class="control">
+    <button [disabled]="!form.valid || processing" class="button is-primary" type="submit">Login</button>
+  </div>
+</form>
