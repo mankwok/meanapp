@@ -9,10 +9,12 @@ Functinos provided in the application:
 
 ## Todo
 Todo list:
-1. AuthGuard in Angular
-2. Profile page
-3. User permission control 
+1. Profile page
+2. User permission control 
+3. Post creation
 4. Post reading
+5. Post update
+6. Post delete
 
 ## Installation
 1. Clone the repo and install dependencies of API server:
@@ -26,7 +28,7 @@ Todo list:
 $ cd angular-app/
 $ npm install
 ```
-3. Setup Mongodb
+3. Setup Mongodb (Change the mongodb config in ./config/database.js)
 ```js
 module.exports = {
     uri: '', //mongodb connection string uri
