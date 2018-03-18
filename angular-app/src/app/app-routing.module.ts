@@ -6,26 +6,33 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 
+import { AuthGuard } from './guards/authGuard.service';
+import { NotAuthGuard } from './guards/notAuthGuard.service';
+
 const appRoutes: Routes = [
     {
       path: '',
       component: HomeComponent,
-      data: { title: 'Man Kwok\'s Site' }
+      data: { title: 'Man Kwok\'s Site' },
+      canActivate: [AuthGuard]
     },
     {
       path: 'dashboard',
       component: DashboardComponent,
-      data: { title: 'Dashboard' }
+      data: { title: 'Dashboard' },
+      canActivate: [AuthGuard]
     },
     {
       path: 'login',
       component: LoginComponent,
-      data: { title: 'Login' }
+      data: { title: 'Login' },
+      canActivate: [NotAuthGuard]
     },
     {
       path: 'profile',
       component: ProfileComponent,
-      data: { title: 'Profile' }
+      data: { title: 'Profile' },
+      canActivate: [AuthGuard]
     },
     {
       path: '**',

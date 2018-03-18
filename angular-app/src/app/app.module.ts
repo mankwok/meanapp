@@ -5,11 +5,17 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+
 import { Router, NavigationStart, NavigationEnd, ActivatedRoute  } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { NgProgressModule, NgProgressBrowserXhr} from 'ngx-progressbar';
 import { BrowserXhr } from '@angular/http';
 
+import { AuthGuard } from './guards/authGuard.service';
+import { NotAuthGuard } from './guards/notAuthGuard.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -17,10 +23,6 @@ import { ErrorNotFoundComponent } from './components/error-not-found/error-not-f
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 
@@ -44,6 +46,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   ],
   providers: [
     AuthService,  
+    AuthGuard,
+    NotAuthGuard,
     {provide: BrowserXhr, useClass: NgProgressBrowserXhr}
   ],
   bootstrap: [AppComponent]
