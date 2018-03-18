@@ -4,7 +4,8 @@ This is an application to simulate a company intranet using MongoDB, Express.js,
 ## Functions
 Functinos provided in the application:
 1. User authentication
-2. ...
+2. Backend user registration
+3. ...
 
 ## Todo
 Todo list:
