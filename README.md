@@ -26,6 +26,19 @@ Todo list:
 $ cd angular-app/
 $ npm install
 ```
+3. Setup Mongodb
+```js
+module.exports = {
+    uri: '', //mongodb connection string uri
+    secret: crypto,
+    option: {
+        auth: {
+            user: '', //mongodb user
+            password: '' //mongodb password
+        }
+    }
+}
+```
 
 ## To Run The Application
 - For development:
