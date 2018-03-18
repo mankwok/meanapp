@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   onLogOutClick() {
     this.closeDrawer();
     this.authService.logout();
-    this.router.navigate(["/"]);
+    this.router.navigate(["/login"]);
   }
 
   onBurgerClick() {

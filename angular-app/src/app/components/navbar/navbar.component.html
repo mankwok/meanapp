@@ -13,7 +13,7 @@
 
     <div id="navbar" class="navbar-menu" [ngClass]="{'is-active': expend}">
       <div class="navbar-start">
-        <a (click)="closeDrawer()" class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/profile" routerLinkActive="is-active">Profile</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/todo" routerLinkActive="is-active">My Todo</a>
