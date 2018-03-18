@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const config = require('./config/database');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const helmet = require('helmet')
+
 
 const authentication = require('./routes/authentication');
 const app = express();
@@ -19,9 +22,7 @@ mongoose.connect(config.uri, config.option, (err) => {
   }
 });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.use(cors({ origin: 'http://localhost:4200' }));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -29,6 +30,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
+app.use(helmet())
+
 app.use(express.static(path.join(__dirname, '/angular-app/dist/')));
 
 app.use('/authentication', authentication);
