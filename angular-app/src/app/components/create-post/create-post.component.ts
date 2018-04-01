@@ -13,6 +13,7 @@ export class CreatePostComponent implements OnInit {
   message;
   form;
   username;
+  processing = false;
   postError = false;
   postSuccess = false;
 
@@ -43,6 +44,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   onPostSubmit() {
+    this.processing = true;
     this.disableForm();
     const post = {
       title: this.form.get("title").value,
@@ -50,6 +52,7 @@ export class CreatePostComponent implements OnInit {
       createdBy: this.username
     };
     this.postService.newPost(post).subscribe(data => {
+      this.processing = false;
       if (!data.success) {
         this.postError = true;
         this.postSuccess = false;
