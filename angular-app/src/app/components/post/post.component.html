@@ -1,0 +1,53 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Post</h1>
+    <button class="button is-link" routerLink="./compose">Compose</button>
+    <button [disabled]="isLoading" (click)="loadPost()" class="button is-link">Refresh</button>
+    <hr/>
+
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Title
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+          <a href="#">@bulmaio</a>.
+          <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br>
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Reply</a>
+        <a href="#" class="card-footer-item">Like</a>
+        <a href="#" class="card-footer-item">Dislike</a>
+      </footer>
+    </div>
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          Title
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+          <a href="#">@bulmaio</a>.
+          <a href="#">#css</a>
+          <a href="#">#responsive</a>
+          <br>
+          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Reply</a>
+        <a href="#" class="card-footer-item">Like</a>
+        <a href="#" class="card-footer-item">Dislike</a>
+      </footer>
+    </div>
+  </div>
+</section>

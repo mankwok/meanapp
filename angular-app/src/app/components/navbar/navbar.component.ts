@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 export class NavbarComponent implements OnInit {
   expend = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   onLogOutClick() {
     this.closeDrawer();

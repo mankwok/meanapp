@@ -9,8 +9,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet')
 
-
 const authentication = require('./routes/authentication');
+const posts = require('./routes/posts');
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -35,6 +35,7 @@ app.use(helmet())
 app.use(express.static(path.join(__dirname, '/angular-app/dist/')));
 
 app.use('/authentication', authentication);
+app.use('/posts', posts);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/angular-app/dist/index.html'));

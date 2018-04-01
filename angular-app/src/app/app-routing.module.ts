@@ -4,6 +4,8 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PostComponent } from './components/post/post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 
 import { AuthGuard } from './guards/authGuard.service';
@@ -34,6 +36,19 @@ const appRoutes: Routes = [
       data: { title: 'Profile' },
       canActivate: [AuthGuard]
     },
+    {
+      path: 'post/compose',
+      component: CreatePostComponent,
+      data: { title: 'Compose New Post' },
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'post',
+      component: PostComponent,
+      data: { title: 'Post' },
+      canActivate: [AuthGuard]
+    },
+
     {
       path: '**',
       component: ErrorNotFoundComponent,

@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlashMessagesModule } from 'angular2-flash-messages'
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -20,10 +21,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
-import { AuthService } from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PostComponent } from './components/post/post.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+
+import { AuthService } from './services/auth.service';
+import { PostService }from './services/post.service';
 
 
 @NgModule({
@@ -34,7 +39,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ErrorNotFoundComponent,
     LoginComponent,
     ProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    PostComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
@@ -42,12 +49,14 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgProgressModule
+    NgProgressModule,
+    FlashMessagesModule.forRoot()
   ],
   providers: [
     AuthService,  
     AuthGuard,
     NotAuthGuard,
+    PostService,
     {provide: BrowserXhr, useClass: NgProgressBrowserXhr}
   ],
   bootstrap: [AppComponent]

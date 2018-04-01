@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   message;
   processing = false;
-  form: FormGroup;
+  form;
   loginError = false;
 
   constructor(
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     this.form.controls["password"].disable();
   }
 
-  // Function to enable form
   enableForm() {
     this.form.controls["username"].enable();
     this.form.controls["password"].enable();

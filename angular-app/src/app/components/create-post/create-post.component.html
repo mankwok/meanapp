@@ -1,0 +1,26 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Compose New Post</h1>
+    <hr/>
+    <div *ngIf="postError" class="notification is-danger">{{message}}</div>
+    <div *ngIf="postSuccess" class="notification is-success">{{message}}</div>
+    <form [formGroup]="form" (submit)="onPostSubmit()">
+      <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control">
+          <input class="input" type="text" id="title" name="title" formControlName="title" placeholder="Title">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="body">Body</label>
+        <div class="control">
+            <textarea class="textarea" id="body" name="body" formControlName="body" placeholder="Body"></textarea>
+        </div>
+      </div>
+      <div class="control">
+        <button [disabled]="!form.valid || processing" class="button is-primary" type="submit">Post</button>
+        <button class="button is-warning"  routerLink="../">Back</button>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,25 +1,28 @@
-<div *ngIf="loginError" class="notification is-danger">{{message}}</div>
-
-<form [formGroup]="form" (submit)="onLoginSubmit()">
-  <div class="field">
-    <label class="label">Username</label>
-    <div class="control has-icons-left">
-      <input class="input" type="text" name="username" formControlName="username" placeholder="Username">
-      <span class="icon is-small is-left">
-        <i class="fas fa-user"></i>
-      </span>
-    </div>
+<section class="section">
+  <div class="container">
+    <div *ngIf="loginError" class="notification is-danger">{{message}}</div>
+    <form [formGroup]="form" (submit)="onLoginSubmit()">
+      <div class="field">
+        <label class="label" for="username">Username</label>
+        <div class="control has-icons-left">
+          <input class="input" type="text" id="username" name="username" formControlName="username" placeholder="Username">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <div class="control has-icons-left">
+          <input class="input" type="password" id="password" name="password" formControlName="password" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
+        </div>
+      </div>
+      <div class="control">
+        <button [disabled]="!form.valid || processing" class="button is-primary" type="submit">Login</button>
+      </div>
+    </form>
   </div>
-  <div class="field">
-    <label class="label">Password</label>
-    <div class="control has-icons-left">
-      <input class="input" type="password" name="password" formControlName="password" placeholder="Password">
-      <span class="icon is-small is-left">
-        <i class="fas fa-key"></i>
-      </span>
-    </div>
-  </div>
-  <div class="control">
-    <button [disabled]="!form.valid || processing" class="button is-primary" type="submit">Login</button>
-  </div>
-</form>
+</section>
