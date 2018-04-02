@@ -1,8 +1,10 @@
 <section class="section">
   <div class="container">
-    <h1 class="title">Post</h1>
-    <button class="button is-link" routerLink="./compose">Compose</button>
-    <button [disabled]="isLoading" (click)="getPost()" class="button is-link">Refresh</button>
+    <h1 class="title is-inline ">Post</h1>
+    <div class="is-pulled-right">
+      <button class="button is-link" routerLink="./compose">Compose</button>
+      <button [disabled]="isLoading" (click)="getPost()" class="button is-link">Refresh</button>
+    </div>
     <hr/>
 
     <div class="card" *ngFor="let post of posts">
