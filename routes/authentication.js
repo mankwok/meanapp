@@ -155,39 +155,4 @@ router.post("/login", (req, res) => {
     );
   }
 });
-
-// router.use((req, res, next) => {
-//   const token = req.headers["token"];
-//   if (!token) {
-//     res.json({ success: false, message: "No auth token" });
-//   } else {
-//     jwt.verify(token, config.secret, (err, decoded) => {
-//       if (err) {
-//         res.json({ success: false, message: "Auth token invalid" });
-//       } else {
-//         req.decoded = decoded;
-//         next();
-//       }
-//     });
-//   }
-// });
-
-router.use(userAuthMw);
-
-router.get("/profile", (req, res) => {
-  User.findOne({ _id: req.decoded.userId })
-    .select("username email")
-    .exec((err, user) => {
-      if (err) {
-        res.json({ success: false, message: err });
-      } else {
-        if (!user) {
-          res.json({ succes: false, message: "User not found" });
-        } else {
-          res.json({ success: true, user: user });
-        }
-      }
-    });
-});
-
 module.exports = router;
