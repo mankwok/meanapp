@@ -76,8 +76,8 @@ const commentValidators = [
 ];
 
 const postSchema = new Schema({
-  title: { type: String, required: true },
-  body: { type: String, required: true },
+  title: { type: String, required: true, validate: titleValidators },
+  body: { type: String, required: true,  validate: bodyValidators },
   createdBy: { type: String },
   createdAt: { type: Date, default: Date.now() },
   likedBy: { type: Array },
