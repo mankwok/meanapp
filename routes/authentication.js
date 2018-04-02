@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const config = require("../config/database");
 
+const userAuthMw = require("../middleware/user-auth-middleware");
+
 router.post("/register", (req, res) => {
   // Check if email was provided
   if (!req.body.email) {
@@ -154,21 +156,23 @@ router.post("/login", (req, res) => {
   }
 });
 
-router.use((req, res, next) => {
-  const token = req.headers["token"];
-  if (!token) {
-    res.json({ success: false, message: "No auth token" });
-  } else {
-    jwt.verify(token, config.secret, (err, decoded) => {
-      if (err) {
-        res.json({ success: false, message: "Auth token invalid" });
-      } else {
-        req.decoded = decoded;
-        next();
-      }
-    });
-  }
-});
+// router.use((req, res, next) => {
+//   const token = req.headers["token"];
+//   if (!token) {
+//     res.json({ success: false, message: "No auth token" });
+//   } else {
+//     jwt.verify(token, config.secret, (err, decoded) => {
+//       if (err) {
+//         res.json({ success: false, message: "Auth token invalid" });
+//       } else {
+//         req.decoded = decoded;
+//         next();
+//       }
+//     });
+//   }
+// });
+
+router.use(userAuthMw);
 
 router.get("/profile", (req, res) => {
   User.findOne({ _id: req.decoded.userId })
