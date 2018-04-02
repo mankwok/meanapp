@@ -5,7 +5,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
-  domain = "http://localhost:3000";
+  domain = "http://localhost:3000/api/";
   token;
   user;
   options;
@@ -28,7 +28,7 @@ export class AuthService {
 
   login(user) {
     return this.http
-      .post(this.domain + "/authentication/login", user)
+      .post(this.domain + "authentication/login", user)
       .map(res => res.json());
   }
 
@@ -48,7 +48,7 @@ export class AuthService {
   getProfile() {
     this.createAuthenticationHeaders();
     return this.http
-      .get(this.domain + "/profile", this.options)
+      .get(this.domain + "profile", this.options)
       .map(res => res.json());
   }
 

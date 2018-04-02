@@ -35,9 +35,9 @@ app.use(helmet())
 
 app.use(express.static(path.join(__dirname, '/angular-app/dist/')));
 
-app.use('/authentication', authentication);
-app.use('/posts', posts);
-app.use('/profile', profile);
+app.use('/api/authentication', authentication);
+app.use('/api/posts', posts);
+app.use('/api/profile', profile);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/angular-app/dist/index.html'));

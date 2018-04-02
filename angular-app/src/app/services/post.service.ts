@@ -24,11 +24,11 @@ export class PostService {
 
   newPost(blog) {
     this.createAuthenticationHeaders();
-    return this.http.post(this.domain + '/posts/newPost', blog, this.options).map(res => res.json());
+    return this.http.post(this.domain + 'posts/newPost', blog, this.options).map(res => res.json());
   }
 
   getAllPosts() {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + '/posts/all',  this.options).map(res => res.json());
+    return this.http.get(this.domain + 'posts/all',  this.options).map(res => res.json());
   }
 }
