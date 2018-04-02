@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
+
+autoIncrement.initialize(mongoose.connection);
 
 let titleLengthChecker = title => {
   if (!title) {
@@ -87,5 +90,7 @@ const postSchema = new Schema({
     }
   ]
 });
+
+postSchema.plugin(autoIncrement.plugin, 'Post')
 
 module.exports = mongoose.model('Post', postSchema);

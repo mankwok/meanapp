@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from "../../services/post.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-post',
@@ -8,13 +10,27 @@ import { Component, OnInit } from '@angular/core';
 export class PostComponent implements OnInit {
 
   isLoading = false;
+  username;
+  posts;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private postService: PostService
+  ) { }
 
-  loadPost(){
+  getPost(){
     this.isLoading = true;
+    this.postService.getAllPosts().subscribe(data => {
+      this.posts = data.posts;
+      this.isLoading = false;
+    });
   }
+
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      this.username = profile.user.username;
+    });
+    this.getPost();
   }
 
 }

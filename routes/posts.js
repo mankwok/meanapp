@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
-const userAuthMw = require("../middleware/user-auth-middleware");
-
 const User = require('../models/user');
 const Post = require('../models/post');
+
+const userAuthMw = require("../middleware/user-auth-middleware");
+
+router.use(userAuthMw);
 
 router.post('/newPost', (req, res) => {
   if (!req.body.title) {
@@ -45,5 +47,20 @@ router.post('/newPost', (req, res) => {
     }
   }
 });
+
+router.get('/all', (req, res) => {
+  Post.find({}, (err, posts) => {
+    if(err){
+      res.json({ success: false, message: err });
+    } else {
+      if(!posts) {
+        res.json({ success: false, message: 'No post found.' });
+      } else {
+        res.json({ success: true, posts: posts });
+      }
+    }
+  }).sort({ '_id': -1 }); 
+});
+
 
 module.exports = router;
