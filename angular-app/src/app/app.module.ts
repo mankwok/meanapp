@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FlashMessagesModule } from 'angular2-flash-messages'
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -49,8 +48,7 @@ import { PostService }from './services/post.service';
     HttpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgProgressModule,
-    FlashMessagesModule.forRoot()
+    NgProgressModule
   ],
   providers: [
     AuthService,  
