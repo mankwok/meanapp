@@ -79,14 +79,14 @@ const postSchema = new Schema({
   title: { type: String, required: true, validate: titleValidators },
   body: { type: String, required: true,  validate: bodyValidators },
   createdBy: { type: String },
-  createdAt: { type: Date, default: Date.now() },
+  createdAt: { type: Date, default: Date.now },
   likedBy: { type: Array },
   dislikedBy: { type: Array },
   comments: [
     {
       comment: { type: String },
       createdBy: { type: String },
-      createdAt: { type: Date, default: Date.now() }
+      createdAt: { type: Date, default: Date.now }
     }
   ]
 });
