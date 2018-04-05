@@ -1,14 +1,14 @@
-<section class="section">
+<section *ngIf="user" class="section">
   <div class="container">
     <div class="columns">
       <div class="column content ">
-        <h1 class="title">{{engName}}</h1>
+        <h1 class="title">{{user.engName}}</h1>
         <h2>Personal Information</h2>
         <ul>
-          <li>Employee ID: {{username}}</li>
-          <li>Email: {{email}}</li>
-          <li>Department: {{department}}</li>
-          <li>Position: {{position}}</li>
+          <li>Employee ID: {{user.username}}</li>
+          <li>Email: {{user.email}}</li>
+          <li>Department: {{user.department}}</li>
+          <li>Position: {{user.position}}</li>
         </ul>
       </div>
     </div>
@@ -21,7 +21,7 @@
       <div class="column level is-mobile">
         <a href="" class="level-item has-text-centered">
           <div>
-            <p>{{postCount}}</p>
+            <p>{{stat}}</p>
             <p>Posts</p>
           </div>
         </a>
