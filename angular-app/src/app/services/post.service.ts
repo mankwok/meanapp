@@ -29,11 +29,20 @@ export class PostService {
 
   getAllPosts() {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + 'posts/all',  this.options).map(res => res.json());
+    return this.http.get(this.domain + 'posts/all', this.options).map(res => res.json());
   }
 
   getPost(id) {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + 'posts/single/' + id,  this.options).map(res => res.json());
+    return this.http.get(this.domain + 'posts/single/' + id, this.options).map(res => res.json());
+  }
+
+  postComment(id, comment) {
+    this.createAuthenticationHeaders();
+    const commentData = {
+      id: id,
+      comment: comment
+    };
+    return this.http.post(this.domain + 'posts/comment/', commentData,  this.options).map(res => res.json());
   }
 }

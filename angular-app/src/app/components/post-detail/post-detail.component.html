@@ -1,21 +1,20 @@
-
 <section class="section">
   <div class="container">
     <h1 class="title is-inline ">{{post.title}}</h1>
     <div class="is-pulled-right">
-      <button class="button is-link">
+      <button [disabled]="processing" (click)="onPostCommentClick()" class="button is-link">
         <span class="icon">
           <i class="fas fa-reply"></i>
         </span>
       </button>
-      <button [disabled]="isLoading" (click)="getPost()" class="button is-link">
+      <button [disabled]="processing" (click)="refreshPost()" class="button is-link">
         <span class="icon">
           <i class="fas fa-sync"></i>
         </span>
       </button>
     </div>
     <hr/>
-    <div class="card">
+    <div class="card post">
       <header class="card-header">
         <p class="card-header-title">
           {{post.createdBy}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
@@ -34,6 +33,49 @@
       <div class="card-content">
         <div class="content">
           <p>{{post.body}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card post" *ngIf="newComment">
+      <header class="card-header">
+        <p class="card-header-title">
+          Compose New Comment
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <form [formGroup]="form">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" id="comment" name="comment" formControlName="comment" placeholder="Comment">
+              </div>
+            </div>
+            <div class="control">
+              <button [disabled]="!form.valid || processing" (click)="submitComment()" class="button is-primary">Submit</button>
+              <button [disabled]="processing" (click)="cancel()" class="button is-warning">Cancel</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!newComment">
+      <div class="card post" *ngIf="post.comments.length == 0">
+        <header class="card-header">
+          <p class="card-header-title">
+            No comment yet!
+          </p>
+        </header>
+      </div>
+      <div class="card post" *ngFor="let comment of post.comments; let i=index">
+        <header class="card-header">
+          <p class="card-header-title">
+            #{{i+1}} - {{comment.createdBy}} - {{ comment.createdAt | date:' dd/MM/yyyy HH:mm' }}
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p>{{comment.comment}}</p>
+          </div>
         </div>
       </div>
     </div>
