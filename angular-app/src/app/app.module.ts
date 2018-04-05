@@ -9,9 +9,14 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-import { Router, NavigationStart, NavigationEnd, ActivatedRoute  } from '@angular/router';
+import {
+  Router,
+  NavigationStart,
+  NavigationEnd,
+  ActivatedRoute
+} from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { NgProgressModule, NgProgressBrowserXhr} from 'ngx-progressbar';
+import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 import { BrowserXhr } from '@angular/http';
 
 import { AuthGuard } from './guards/authGuard.service';
@@ -30,7 +35,6 @@ import { AuthService } from './services/auth.service';
 import { PostService } from './services/post.service';
 import { PostResolveService } from './services/post-resolve.service';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
-
 
 @NgModule({
   declarations: [
@@ -54,12 +58,12 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     NgProgressModule
   ],
   providers: [
-    AuthService,  
+    AuthService,
     AuthGuard,
     NotAuthGuard,
     PostService,
     PostResolveService,
-    {provide: BrowserXhr, useClass: NgProgressBrowserXhr}
+    { provide: BrowserXhr, useClass: NgProgressBrowserXhr }
   ],
   bootstrap: [AppComponent]
 })
@@ -68,17 +72,19 @@ export class AppModule {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title
-  ) { 
-
+  ) {
     this.router.events
-       .filter((event) => event instanceof NavigationEnd)
-       .map(() => this.activatedRoute)
-       .map((route) => {
-         while (route.firstChild) route = route.firstChild;
-         return route;
-       })
-       .filter((route) => route.outlet === 'primary')
-       .mergeMap((route) => route.data)
-       .subscribe((event) => this.titleService.setTitle(event['title']));
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .mergeMap(route => route.data)
+      .subscribe(event => {
+        this.titleService.setTitle(event['title']);
+        window.scrollTo(0, 0);
+      });
   }
 }
