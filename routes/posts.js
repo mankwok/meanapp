@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Post = require('../models/post');
 
-const userAuthMw = require("../middleware/user-auth-middleware");
+const userAuthMw = require('../middleware/user-auth-middleware');
 
 router.use(userAuthMw);
 
@@ -24,25 +24,28 @@ router.post('/newPost', (req, res) => {
           body: req.body.body,
           createdBy: req.body.createdBy
         });
-        post.save((err) => {
-            if (err) {
-              if (err.errors) {
-                if (err.errors.title) {
-                  res.json({ success: false, message: err.errors.title.message });
-                } else {
-                  if (err.errors.body) {
-                    res.json({ success: false, message: err.errors.body.message });
-                  } else {
-                    res.json({ success: false, message: err });
-                  }
-                }
+        post.save(err => {
+          if (err) {
+            if (err.errors) {
+              if (err.errors.title) {
+                res.json({ success: false, message: err.errors.title.message });
               } else {
-                res.json({ success: false, message: err });
+                if (err.errors.body) {
+                  res.json({
+                    success: false,
+                    message: err.errors.body.message
+                  });
+                } else {
+                  res.json({ success: false, message: err });
+                }
               }
             } else {
-              res.json({ success: true, message: 'Post created!' });
+              res.json({ success: false, message: err });
             }
-          });
+          } else {
+            res.json({ success: true, message: 'Post created!' });
+          }
+        });
       }
     }
   }
@@ -50,17 +53,34 @@ router.post('/newPost', (req, res) => {
 
 router.get('/all', (req, res) => {
   Post.find({}, (err, posts) => {
-    if(err){
+    if (err) {
       res.json({ success: false, message: err });
     } else {
-      if(!posts) {
+      if (!posts) {
         res.json({ success: false, message: 'No post found.' });
       } else {
         res.json({ success: true, posts: posts });
       }
     }
-  }).sort({ '_id': -1 }); 
+  }).sort({ _id: -1 });
 });
 
+router.get('/single/:id', (req, res) => {
+  if (!req.params.id) {
+    res.json({ success: false, message: 'No' });
+  } else {
+    Post.findOne({ _id: req.params.id }, (err, post) => {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!post) {
+          res.json({ success: false, message: 'No post found.' });
+        } else {
+          res.json({ success: true, post: post });
+        }
+      }
+    }).sort({ _id: -1 });
+  }
+});
 
 module.exports = router;

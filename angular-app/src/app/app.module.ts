@@ -27,7 +27,9 @@ import { PostComponent } from './components/post/post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 
 import { AuthService } from './services/auth.service';
-import { PostService }from './services/post.service';
+import { PostService } from './services/post.service';
+import { PostResolveService } from './services/post-resolve.service';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { PostService }from './services/post.service';
     ProfileComponent,
     NavbarComponent,
     PostComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { PostService }from './services/post.service';
     AuthGuard,
     NotAuthGuard,
     PostService,
+    PostResolveService,
     {provide: BrowserXhr, useClass: NgProgressBrowserXhr}
   ],
   bootstrap: [AppComponent]

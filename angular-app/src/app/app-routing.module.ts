@@ -6,10 +6,12 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PostComponent } from './components/post/post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component'
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 
 import { AuthGuard } from './guards/authGuard.service';
 import { NotAuthGuard } from './guards/notAuthGuard.service';
+import { PostResolveService } from './services/post-resolve.service';
 
 const appRoutes: Routes = [
     {
@@ -37,18 +39,25 @@ const appRoutes: Routes = [
       canActivate: [AuthGuard]
     },
     {
+      path: 'post/:id',
+      component: PostDetailComponent,
+      canActivate: [AuthGuard],
+      resolve: {
+        postResolve: PostResolveService
+      }
+    },
+    {
       path: 'post/compose',
       component: CreatePostComponent,
       data: { title: 'Compose New Post' },
       canActivate: [AuthGuard]
     },
     {
-      path: 'post',
+      path: 'posts',
       component: PostComponent,
-      data: { title: 'Post' },
+      data: { title: 'Posts' },
       canActivate: [AuthGuard]
     },
-
     {
       path: '**',
       component: ErrorNotFoundComponent,

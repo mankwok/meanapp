@@ -1,0 +1,41 @@
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-inline ">{{post.title}}</h1>
+    <div class="is-pulled-right">
+      <button class="button is-link">
+        <span class="icon">
+          <i class="fas fa-reply"></i>
+        </span>
+      </button>
+      <button [disabled]="isLoading" (click)="getPost()" class="button is-link">
+        <span class="icon">
+          <i class="fas fa-sync"></i>
+        </span>
+      </button>
+    </div>
+    <hr/>
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{post.createdBy}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
+        </p>
+        <div class="card-header-icon" aria-label="Reply">
+          <span class="icon">
+            <i class="fas fa-reply" aria-hidden="true"></i>
+          </span> {{post.comments.length}}
+        </div>
+        <div class="card-header-icon" aria-label="Like">
+          <span class="icon">
+            <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+          </span> {{post.likedBy.length}}
+        </div>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>{{post.body}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

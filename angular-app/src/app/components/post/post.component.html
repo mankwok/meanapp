@@ -4,8 +4,8 @@
     <div class="is-pulled-right">
       <button class="button is-link" routerLink="./compose">
         <span class="icon">
-            <i class="fas fa-plus"></i>
-          </span>
+          <i class="fas fa-plus"></i>
+        </span>
       </button>
       <button [disabled]="isLoading" (click)="getPost()" class="button is-link">
         <span class="icon">
@@ -14,41 +14,26 @@
       </button>
     </div>
     <hr/>
-
-    <div class="card post" *ngFor="let post of posts">
-      <header class="card-header">
-        <p class="card-header-title">
-          {{post.title}}
-          <a [routerLink]="['./edit/', post._id]" *ngIf="username === post.createdBy" href="#" aria-label="Edit">
-            <span class="icon">
-              <i class="fas fa-edit" aria-hidden="true"></i>
-            </span>
-          </a>
-        </p>
-        <a [routerLink]="['./edit/', post._id]" href="#" class="card-header-icon" aria-label="Reply">
-          <span class="icon">
-            <i class="fas fa-reply" aria-hidden="true"></i>
-          </span> 0
-        </a>
-        <a [routerLink]="['./edit/', post._id]" href="#" class="card-header-icon" aria-label="Like">
-          <span class="icon">
-            <i class="fas fa-thumbs-up" aria-hidden="true"></i>
-          </span> {{post.likedBy.length}}
-        </a>
-        <a [routerLink]="['./edit/', post._id]" href="#" class="card-header-icon" aria-label="Dislike">
-          <span class="icon">
-            <i class="fas fa-thumbs-down" aria-hidden="true"></i>
-          </span> {{post.dislikedBy.length}}
-        </a>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          <p>By: {{post.createdBy}}, At: {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}</p>
-          <p>
-            {{post.body}}
+    <a [routerLink]="['/post', post._id]" *ngFor="let post of posts">
+      <div class="card post">
+        <header class="card-header">
+          <p class="card-header-title">
+            {{post.title}} 
+            <br/>
+            By: {{post.createdBy}} - At: {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }} 
           </p>
-        </div>
+          <div class="card-header-icon" aria-label="Reply">
+            <span class="icon">
+              <i class="fas fa-reply" aria-hidden="true"></i>
+            </span> {{post.comments.length}}
+          </div>
+          <div class="card-header-icon" aria-label="Like">
+            <span class="icon">
+              <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+            </span> {{post.likedBy.length}}
+          </div>
+        </header>
       </div>
-    </div>
+    </a>
   </div>
 </section>
