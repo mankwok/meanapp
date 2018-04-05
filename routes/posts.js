@@ -67,7 +67,7 @@ router.get('/all', (req, res) => {
 
 router.get('/single/:id', (req, res) => {
   if (!req.params.id) {
-    res.json({ success: false, message: 'No' });
+    res.json({ success: false, message: 'Invalid post id' });
   } else {
     Post.findOne({ _id: req.params.id }, (err, post) => {
       if (err) {
@@ -80,6 +80,47 @@ router.get('/single/:id', (req, res) => {
         }
       }
     }).sort({ _id: -1 });
+  }
+});
+
+router.post('/comment', (req, res) => {
+  if (!req.body.comment) {
+    res.json({ success: false, message: 'No comment inputted' });
+  } else {
+    if (!req.body.id) {
+      res.json({ success: false, message: 'No post id' });
+    } else {
+      Post.findOne({ _id: req.body.id }, (err, post) => {
+        if (err) {
+          res.json({ success: false, message: 'Invalid post id' });
+        } else {
+          User.findOne({ _id: req.decoded.userId }, (err, user) => {
+            if (err) {
+              res.json({ success: false, message: 'Invalid user id' });
+            } else {
+              if (!user) {
+                res.json({ success: false, message: 'User not found.' });
+              } else {
+                post.comments.push({
+                  comment: req.body.comment,
+                  createdBy: user.username
+                });
+                post.save(err => {
+                  if (err) {
+                    res.json({
+                      success: false,
+                      message: 'Something went wrong.'
+                    });
+                  } else {
+                    res.json({ success: true, message: 'Comment saved' });
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
+    }
   }
 });
 
