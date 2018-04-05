@@ -27,9 +27,6 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      this.username = profile.user.username;
-    });
     this.getPost();
   }
 
