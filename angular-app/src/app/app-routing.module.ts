@@ -39,15 +39,7 @@ const appRoutes: Routes = [
       canActivate: [AuthGuard]
     },
     {
-      path: 'post/:id',
-      component: PostDetailComponent,
-      canActivate: [AuthGuard],
-      resolve: {
-        postResolve: PostResolveService
-      }
-    },
-    {
-      path: 'post/compose',
+      path: 'compose-post',
       component: CreatePostComponent,
       data: { title: 'Compose New Post' },
       canActivate: [AuthGuard]
@@ -57,6 +49,14 @@ const appRoutes: Routes = [
       component: PostComponent,
       data: { title: 'Posts' },
       canActivate: [AuthGuard]
+    },
+    {
+      path: 'posts/:id',
+      component: PostDetailComponent,
+      canActivate: [AuthGuard],
+      resolve: {
+        postResolve: PostResolveService
+      }
     },
     {
       path: '**',

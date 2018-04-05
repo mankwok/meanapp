@@ -4,7 +4,7 @@
     <hr/>
     <div *ngIf="postError" class="notification is-danger">{{message}}</div>
     <div *ngIf="postSuccess" class="notification is-success">{{message}}</div>
-    <form [formGroup]="form" (submit)="onPostSubmit()">
+    <form [formGroup]="form">
       <div class="field">
         <label class="label" for="title">Title</label>
         <div class="control">
@@ -18,8 +18,8 @@
         </div>
       </div>
       <div class="control">
-        <button [disabled]="!form.valid || processing" class="button is-primary" type="submit">Post</button>
-        <button class="button is-warning"  routerLink="../">Back</button>
+        <button [disabled]="!form.valid || processing" (click)="onPostSubmit()" class="button is-primary" type="submit">Post</button>
+        <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
       </div>
     </form>
   </div>
