@@ -36,7 +36,28 @@
         </div>
       </div>
     </div>
-    <div class="card post" *ngIf="newComment">
+
+    <div class="card post" *ngIf="post.comments.length == 0">
+      <header class="card-header">
+        <p class="card-header-title">
+          No comment yet!
+        </p>
+      </header>
+    </div>
+    <div class="card post" *ngFor="let comment of post.comments; let i=index">
+      <header class="card-header">
+        <p class="card-header-title">
+          #{{i+1}} - {{comment.createdBy}} - {{ comment.createdAt | date:' dd/MM/yyyy HH:mm' }}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>{{comment.comment}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="new-comment" class="card post">
       <header class="card-header">
         <p class="card-header-title">
           Compose New Comment
@@ -53,31 +74,11 @@
             <div class="control">
               <button [disabled]="!form.valid || processing" (click)="submitComment()" class="button is-primary">Submit</button>
               <button [disabled]="processing" (click)="cancel()" class="button is-warning">Cancel</button>
-              </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
-    <div *ngIf="!newComment">
-      <div class="card post" *ngIf="post.comments.length == 0">
-        <header class="card-header">
-          <p class="card-header-title">
-            No comment yet!
-          </p>
-        </header>
-      </div>
-      <div class="card post" *ngFor="let comment of post.comments; let i=index">
-        <header class="card-header">
-          <p class="card-header-title">
-            #{{i+1}} - {{comment.createdBy}} - {{ comment.createdAt | date:' dd/MM/yyyy HH:mm' }}
-          </p>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            <p>{{comment.comment}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 </section>

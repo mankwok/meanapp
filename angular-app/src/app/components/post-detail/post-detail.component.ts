@@ -38,9 +38,14 @@ export class PostDetailComponent implements OnInit {
     this.form.controls["comment"].enable();
   }
 
+  resetForm() {
+    this.form.reset();
+  }
+
   onPostCommentClick() {
-    this.newComment = !this.newComment;
-    this.form.get("comment").value = '';
+    let elmnt = document.getElementById("comment");
+    elmnt.scrollIntoView();
+    elmnt.focus();
   }
 
   refreshPost() {
@@ -48,7 +53,6 @@ export class PostDetailComponent implements OnInit {
     this.postService.getPost(this.post._id).subscribe(data => {
       this.post = data.post;
       this.processing = false;
-      this.newComment = false;
     });
     this.enableForm();
   }
@@ -63,12 +67,13 @@ export class PostDetailComponent implements OnInit {
       } else {
         console.log('post comment success');
         this.refreshPost();
+        this.resetForm();
       }
     });
   }
 
   cancel() {
-    this.newComment = false;
+    this.resetForm();
   }
 
   ngOnInit() {
