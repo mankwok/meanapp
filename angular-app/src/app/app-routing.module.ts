@@ -17,7 +17,7 @@ const appRoutes: Routes = [
     {
       path: '',
       component: HomeComponent,
-      data: { title: 'Man Kwok\'s Site' },
+      data: { title: 'Kwok\'s Intranet' },
       canActivate: [AuthGuard]
     },
     {
