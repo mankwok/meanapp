@@ -1,34 +1,46 @@
 <section class="section">
   <div class="container">
-    <h1 class="title is-inline ">{{post.title}}</h1>
-    <div class="is-pulled-right">
-      <button [disabled]="processing" (click)="onPostCommentClick()" class="button is-link">
-        <span class="icon">
-          <i class="fas fa-reply"></i>
-        </span>
-      </button>
-      <button [disabled]="processing" (click)="refreshPost()" class="button is-link">
-        <span class="icon">
-          <i class="fas fa-sync"></i>
-        </span>
-      </button>
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-inline ">{{post.title}}</h1>
+      </div>
+      <div class="column is-one-quarter has-text-right">
+        <button [disabled]="processing" (click)="onPostCommentClick()" class="button is-link">
+          <span class="icon">
+            <i class="fas fa-reply"></i>
+          </span>
+          <span>{{post.comments.length}}</span>
+        </button>
+        <div class="dropdown is-hoverable">
+          <div class="dropdown-trigger">
+            <button [disabled]="processing" (click)="likePost()" class="button is-link" aria-haspopup="true" aria-controls="dropdown-like">
+              <span class="icon is-small">
+                <i class="fas fa-thumbs-up" aria-hidden="true"></i>
+              </span>
+              <span>{{post.likedBy.length}}</span>
+            </button>
+          </div>
+          <div *ngIf="post.likedBy.length > 0" class="dropdown-menu" id="dropdown-like" role="menu">
+            <div class="dropdown-content has-text-left">
+              <div *ngFor="let likeBy of post.likedBy" class="dropdown-item">
+                {{likeBy}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <button [disabled]="processing" (click)="refreshPost()" class="button is-link">
+          <span class="icon">
+            <i class="fas fa-sync"></i>
+          </span>
+        </button>
+      </div>
     </div>
     <hr/>
     <div class="card post">
       <header class="card-header">
         <p class="card-header-title">
-          {{post.createdBy}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
+          Poster: {{post.createdBy}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
         </p>
-        <div class="card-header-icon" aria-label="Reply">
-          <span class="icon">
-            <i class="fas fa-reply" aria-hidden="true"></i>
-          </span> {{post.comments.length}}
-        </div>
-        <div class="card-header-icon" aria-label="Like">
-          <span class="icon">
-            <i class="fas fa-thumbs-up" aria-hidden="true"></i>
-          </span> {{post.likedBy.length}}
-        </div>
       </header>
       <div class="card-content">
         <div class="content">
@@ -36,15 +48,7 @@
         </div>
       </div>
     </div>
-
-    <div class="card post" *ngIf="post.comments.length == 0">
-      <header class="card-header">
-        <p class="card-header-title">
-          No comment yet!
-        </p>
-      </header>
-    </div>
-    <div class="card post" *ngFor="let comment of post.comments; let i=index">
+    <div *ngFor="let comment of post.comments; let i=index" class="card post">
       <header class="card-header">
         <p class="card-header-title">
           #{{i+1}} - {{comment.createdBy}} - {{ comment.createdAt | date:' dd/MM/yyyy HH:mm' }}
@@ -56,7 +60,6 @@
         </div>
       </div>
     </div>
-
     <div id="new-comment" class="card post">
       <header class="card-header">
         <p class="card-header-title">
@@ -73,12 +76,11 @@
             </div>
             <div class="control">
               <button [disabled]="!form.valid || processing" (click)="submitComment()" class="button is-primary">Submit</button>
-              <button [disabled]="processing" (click)="cancel()" class="button is-warning">Cancel</button>
+              <button [disabled]="processing" (click)="resetForm()" class="button is-warning">Reset</button>
             </div>
           </form>
         </div>
       </div>
     </div>
-
   </div>
 </section>

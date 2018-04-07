@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Title } from '@angular/platform-browser';
 import { PostService } from '../../services/post.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-post-detail',
@@ -19,7 +20,8 @@ export class PostDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private titleService: Title,
-    private postService: PostService
+    private postService: PostService,
+    private flashMessagesService: FlashMessagesService
   ) {
     this.createForm();
   }
@@ -62,18 +64,24 @@ export class PostDetailComponent implements OnInit {
     this.disableForm();
     this.postService.postComment(this.post._id, this.form.get("comment").value,).subscribe(data => {
       this.processing = false;
-      if (!data.success) {
-        console.log('fail ' + data.message);
-      } else {
-        console.log('post comment success');
+      this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
+      if (data.success) {
         this.refreshPost();
         this.resetForm();
       }
     });
   }
 
-  cancel() {
-    this.resetForm();
+  likePost() {
+    this.processing = true;
+    this.disableForm();
+    this.postService.likePost(this.post._id).subscribe(data => {
+      this.processing = false;
+      this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
+      if (data.success) {
+        this.refreshPost();
+      }
+    });
   }
 
   ngOnInit() {

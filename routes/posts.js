@@ -11,13 +11,13 @@ router.use(userAuthMw);
 
 router.post('/newPost', (req, res) => {
   if (!req.body.title) {
-    res.json({ success: false, message: 'Post title is required.' });
+    res.json({ success: false, message: 'Post title is required' });
   } else {
     if (!req.body.body) {
-      res.json({ success: false, message: 'Post body is required.' });
+      res.json({ success: false, message: 'Post body is required' });
     } else {
       if (!req.body.createdBy) {
-        res.json({ success: false, message: 'Post creator is required.' });
+        res.json({ success: false, message: 'Post creator is required' });
       } else {
         let post = new Post({
           title: req.body.title,
@@ -43,7 +43,7 @@ router.post('/newPost', (req, res) => {
               res.json({ success: false, message: err });
             }
           } else {
-            res.json({ success: true, message: 'Post created!' });
+            res.json({ success: true, message: 'Post created' });
           }
         });
       }
@@ -57,7 +57,7 @@ router.get('/all', (req, res) => {
       res.json({ success: false, message: err });
     } else {
       if (!posts) {
-        res.json({ success: false, message: 'No post found.' });
+        res.json({ success: false, message: 'No post found' });
       } else {
         res.json({ success: true, posts: posts });
       }
@@ -74,7 +74,7 @@ router.get('/single/:id', (req, res) => {
         res.json({ success: false, message: err });
       } else {
         if (!post) {
-          res.json({ success: false, message: 'No post found.' });
+          res.json({ success: false, message: 'No post found' });
         } else {
           res.json({ success: true, post: post });
         }
@@ -99,7 +99,7 @@ router.post('/comment', (req, res) => {
               res.json({ success: false, message: 'Invalid user id' });
             } else {
               if (!user) {
-                res.json({ success: false, message: 'User not found.' });
+                res.json({ success: false, message: 'User not found' });
               } else {
                 post.comments.push({
                   comment: req.body.comment,
@@ -109,10 +109,10 @@ router.post('/comment', (req, res) => {
                   if (err) {
                     res.json({
                       success: false,
-                      message: 'Something went wrong.'
+                      message: 'Something went wrong'
                     });
                   } else {
-                    res.json({ success: true, message: 'Comment saved' });
+                    res.json({ success: true, message: 'Comment posted' });
                   }
                 });
               }
@@ -121,6 +121,55 @@ router.post('/comment', (req, res) => {
         }
       });
     }
+  }
+});
+
+router.put('/likePost', (req, res) => {
+  if (!req.body.id) {
+    res.json({ success: false, message: 'No post id' });
+  } else {
+    Post.findOne({ _id: req.body.id }, (err, post) => {
+      if (err) {
+        res.json({ success: false, message: 'Invalid post id' });
+      } else {
+        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+          if (err) {
+            res.json({ success: false, message: 'Invalid user id' });
+          } else {
+            if (!user) {
+              res.json({ success: false, message: 'User not found' });
+            } else {
+              if (post.likedBy.includes(user.username)) {
+                const index = post.likedBy.indexOf(user.username);
+                post.likedBy.splice(index, 1);
+                post.save(err => {
+                  if (err) {
+                    res.json({
+                      success: false,
+                      message: 'Something went wrong'
+                    });
+                  } else {
+                    res.json({ success: true, message: 'Post unliked' });
+                  }
+                });
+              } else {
+                post.likedBy.push(user.username);
+                post.save(err => {
+                  if (err) {
+                    res.json({
+                      success: false,
+                      message: 'Something went wrong'
+                    });
+                  } else {
+                    res.json({ success: true, message: 'Post liked' });
+                  }
+                });
+              }
+            }
+          }
+        });
+      }
+    });
   }
 });
 
