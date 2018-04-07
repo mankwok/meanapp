@@ -16,8 +16,9 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
 import { BrowserXhr } from '@angular/http';
+import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AuthGuard } from './guards/authGuard.service';
 import { NotAuthGuard } from './guards/notAuthGuard.service';
@@ -55,7 +56,8 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     HttpModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgProgressModule
+    NgProgressModule,
+    FlashMessagesModule.forRoot()
   ],
   providers: [
     AuthService,
