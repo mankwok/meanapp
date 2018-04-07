@@ -2,8 +2,7 @@
   <div class="container">
     <h1 class="title">Compose New Post</h1>
     <hr/>
-    <div *ngIf="postError" class="notification is-danger">{{message}}</div>
-    <div *ngIf="postSuccess" class="notification is-success">{{message}}</div>
+    <div *ngIf="postError" class="notification is-danger">{{errorMessage}}</div>
     <form [formGroup]="form">
       <div class="field">
         <label class="label" for="title">Title</label>

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-create-post',
@@ -16,19 +17,19 @@ import { PostService } from '../../services/post.service';
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  message;
   form;
   username;
+  errorMessage;
   processing = false;
   postError = false;
-  postSuccess = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private location: Location,
     private authService: AuthService,
-    private postService: PostService
+    private postService: PostService,
+    private flashMessagesService: FlashMessagesService
   ) {
     this.createForm();
   }
@@ -52,6 +53,7 @@ export class CreatePostComponent implements OnInit {
 
   onPostSubmit() {
     this.processing = true;
+    this.postError = false;
     this.disableForm();
     const post = {
       title: this.form.get('title').value,
@@ -62,13 +64,10 @@ export class CreatePostComponent implements OnInit {
       this.processing = false;
       if (!data.success) {
         this.postError = true;
-        this.postSuccess = false;
-        this.message = data.message;
+        this.errorMessage = data.message;
         this.enableForm();
       } else {
-        this.postError = false;
-        this.postSuccess = true;
-        this.message = data.message;
+        this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
         setTimeout(() => {
           this.router.navigate(['/posts']);
         }, 3000);
