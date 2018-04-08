@@ -15,7 +15,7 @@
       <div class="navbar-start">
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/profile" routerLinkActive="is-active">Profile</a>
-        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/dashboard" routerLinkActive="is-active">Dashboard</a>
+        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/service-request" routerLinkActive="is-active">Service Request</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/posts" routerLinkActive="is-active">Posts</a>
         <a *ngIf="!authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/login" routerLinkActive="is-active">Login</a>
         <a *ngIf="authService.loggedIn()" (click)="onLogOutClick()" class="navbar-item" href="">Logout</a>

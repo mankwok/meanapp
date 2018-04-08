@@ -5,7 +5,7 @@
         <h1 class="title is-inline ">Posts</h1>
       </div>
       <div class="column is-one-quarter has-text-right">
-        <button class="button is-link" routerLink="/compose-post">
+        <button class="button is-link" routerLink="./compose-post">
           <span class="icon">
             <i class="fas fa-plus"></i>
           </span>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <hr/>
-    <a [routerLink]="['/posts', post._id]" *ngFor="let post of posts">
+    <a [routerLink]="['./', post._id]" *ngFor="let post of posts">
       <div class="card post">
         <header class="card-header">
           <p class="card-header-title">
