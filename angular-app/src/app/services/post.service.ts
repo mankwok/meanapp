@@ -1,43 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { AuthService } from './auth.service';
 
 @Injectable()
 export class PostService {
-  options;
+  httpOptions;
   domain = this.authService.domain;
 
-  constructor(private authService: AuthService, private http: Http) {}
+  constructor(private authService: AuthService, private http: HttpClient) {}
 
   createAuthenticationHeaders() {
     this.authService.loadToken();
-    this.options = new RequestOptions({
-      headers: new Headers({
+    this.httpOptions = {
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         token: this.authService.token
       })
-    });
+    };
   }
 
   newPost(blog) {
     this.createAuthenticationHeaders();
-    return this.http
-      .post(this.domain + 'posts/newPost', blog, this.options)
-      .map(res => res.json());
+    return this.http.post(
+      this.domain + 'posts/newPost',
+      blog,
+      this.httpOptions
+    );
   }
 
   getAllPosts() {
     this.createAuthenticationHeaders();
-    return this.http
-      .get(this.domain + 'posts/all', this.options)
-      .map(res => res.json());
+    return this.http.get(this.domain + 'posts/all', this.httpOptions);
   }
 
   getPost(id) {
     this.createAuthenticationHeaders();
-    return this.http
-      .get(this.domain + 'posts/single/' + id, this.options)
-      .map(res => res.json());
+    return this.http.get(this.domain + 'posts/single/' + id, this.httpOptions);
   }
 
   postComment(id, comment) {
@@ -46,18 +44,22 @@ export class PostService {
       id: id,
       comment: comment
     };
-    return this.http
-      .post(this.domain + 'posts/comment/', commentData, this.options)
-      .map(res => res.json());
+    return this.http.post(
+      this.domain + 'posts/comment/',
+      commentData,
+      this.httpOptions
+    );
   }
 
   likePost(id) {
     this.createAuthenticationHeaders();
     const post = {
-      id: id,
+      id: id
     };
-    return this.http
-      .put(this.domain + 'posts/likePost/', post, this.options)
-      .map(res => res.json());
+    return this.http.put(
+      this.domain + 'posts/likePost/',
+      post,
+      this.httpOptions
+    );
   }
 }

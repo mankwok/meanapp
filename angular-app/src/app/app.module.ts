@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import 'rxjs/add/operator/filter';
@@ -17,7 +17,8 @@ import {
 
 import { Title } from '@angular/platform-browser';
 import { BrowserXhr } from '@angular/http';
-import { NgProgressModule, NgProgressBrowserXhr } from 'ngx-progressbar';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AuthGuard } from './guards/authGuard.service';
@@ -43,9 +44,10 @@ import { PostResolveService } from './services/post-resolve.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule,
     ReactiveFormsModule,
-    NgProgressModule,
+    HttpClientModule,
+    NgProgressModule.forRoot(),
+    NgProgressHttpModule,
     FlashMessagesModule.forRoot()
   ],
   providers: [
@@ -53,8 +55,7 @@ import { PostResolveService } from './services/post-resolve.service';
     AuthGuard,
     NotAuthGuard,
     PostService,
-    PostResolveService,
-    { provide: BrowserXhr, useClass: NgProgressBrowserXhr }
+    PostResolveService
   ],
   bootstrap: [AppComponent]
 })

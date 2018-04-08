@@ -1,35 +1,33 @@
-import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions } from "@angular/http";
-import "rxjs/add/operator/map";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
-  domain = "http://localhost:3000/api/";
+  domain = 'http://localhost:3000/api/';
   token;
   user;
-  options;
+  httpOptions;
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   createAuthenticationHeaders() {
     this.loadToken();
-    this.options = new RequestOptions({
-      headers: new Headers({
+    this.httpOptions = {
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'token': this.token
+        token: this.token
       })
-    });
+    };
   }
 
   loadToken() {
-    this.token = localStorage.getItem("token");
+    this.token = localStorage.getItem('token');
   }
 
   login(user) {
-    return this.http
-      .post(this.domain + "authentication/login", user)
-      .map(res => res.json());
+    return this.http.post(this.domain + 'authentication/login', user);
   }
 
   logout() {
@@ -39,20 +37,18 @@ export class AuthService {
   }
 
   storeUserData(token, user) {
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     this.token = token;
     this.user = user;
   }
 
   getProfile() {
     this.createAuthenticationHeaders();
-    return this.http
-      .get(this.domain + "profile", this.options)
-      .map(res => res.json());
+    return this.http.get(this.domain + 'profile', this.httpOptions);
   }
 
-  loggedIn(){
+  loggedIn() {
     return tokenNotExpired();
   }
 }

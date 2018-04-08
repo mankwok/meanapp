@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { PostService } from '../../services/post.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -28,16 +33,16 @@ export class PostDetailComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      comment: ["", Validators.required]
+      comment: ['', Validators.required]
     });
   }
 
   disableForm() {
-    this.form.controls["comment"].disable();
+    this.form.controls['comment'].disable();
   }
 
   enableForm() {
-    this.form.controls["comment"].enable();
+    this.form.controls['comment'].enable();
   }
 
   resetForm() {
@@ -45,7 +50,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   onPostCommentClick() {
-    let elmnt = document.getElementById("comment");
+    let elmnt = document.getElementById('comment');
     elmnt.scrollIntoView();
     elmnt.focus();
   }
@@ -53,7 +58,7 @@ export class PostDetailComponent implements OnInit {
   refreshPost() {
     this.processing = true;
     this.postService.getPost(this.post._id).subscribe(data => {
-      this.post = data.post;
+      this.post = data['post'];
       this.processing = false;
     });
     this.enableForm();
@@ -62,14 +67,19 @@ export class PostDetailComponent implements OnInit {
   submitComment() {
     this.processing = true;
     this.disableForm();
-    this.postService.postComment(this.post._id, this.form.get("comment").value,).subscribe(data => {
-      this.processing = false;
-      this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
-      if (data.success) {
-        this.refreshPost();
-        this.resetForm();
-      }
-    });
+    this.postService
+      .postComment(this.post._id, this.form.get('comment').value)
+      .subscribe(data => {
+        this.processing = false;
+        this.flashMessagesService.show(data['message'], {
+          cssClass: 'snackbar',
+          timeout: 3000
+        });
+        if (data['success']) {
+          this.refreshPost();
+          this.resetForm();
+        }
+      });
   }
 
   likePost() {
@@ -77,8 +87,11 @@ export class PostDetailComponent implements OnInit {
     this.disableForm();
     this.postService.likePost(this.post._id).subscribe(data => {
       this.processing = false;
-      this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
-      if (data.success) {
+      this.flashMessagesService.show(data['message'], {
+        cssClass: 'snackbar',
+        timeout: 3000
+      });
+      if (data['success']) {
         this.refreshPost();
       }
     });

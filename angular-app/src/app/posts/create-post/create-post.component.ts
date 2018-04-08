@@ -62,12 +62,15 @@ export class CreatePostComponent implements OnInit {
     };
     this.postService.newPost(post).subscribe(data => {
       this.processing = false;
-      if (!data.success) {
+      if (!data['success']) {
         this.postError = true;
-        this.errorMessage = data.message;
+        this.errorMessage = data['message'];
         this.enableForm();
       } else {
-        this.flashMessagesService.show(data.message, { cssClass: 'snackbar', timeout: 3000 })
+        this.flashMessagesService.show(data['message'], {
+          cssClass: 'snackbar',
+          timeout: 3000
+        });
         setTimeout(() => {
           this.router.navigate(['/posts']);
         }, 3000);
@@ -81,7 +84,7 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      this.username = profile.user.username;
+      this.username = profile['user']['username'];
     });
   }
 }
