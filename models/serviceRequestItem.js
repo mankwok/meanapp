@@ -12,4 +12,4 @@ const ServiceRequestItemSchema = new Schema({
 
 ServiceRequestItemSchema.plugin(autoIncrement.plugin, 'Service Request Item');
 
-module.exports = mongoose.model('Service Request', ServiceRequestItemSchema);
+module.exports = mongoose.model('Service Request Item', ServiceRequestItemSchema);
