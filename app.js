@@ -13,6 +13,7 @@ const authentication = require('./routes/authentication');
 const posts = require('./routes/posts');
 const profile = require('./routes/profile');
 const serviceRequest = require('./routes/service_request');
+const activities = require('./routes/activities');
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -40,6 +41,7 @@ app.use('/api/authentication', authentication);
 app.use('/api/posts', posts);
 app.use('/api/profile', profile);
 app.use('/api/serviceRequest', serviceRequest);
+app.use('/api/activities', activities);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/angular-app/dist/index.html'));

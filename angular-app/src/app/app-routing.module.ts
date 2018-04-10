@@ -36,6 +36,11 @@ const appRoutes: Routes = [
       canLoad: [AuthGuard]
     },
     {
+      path: 'activity',
+      loadChildren: 'app/activity/activity.module#ActivityModule',
+      canLoad: [AuthGuard]
+    },
+    {
       path: '**',
       component: ErrorNotFoundComponent,
       data: { title: '404 Not Found' }
