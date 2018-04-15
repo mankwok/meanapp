@@ -78,15 +78,14 @@ const commentValidators = [
 const postSchema = new Schema({
   title: { type: String, required: true, validate: titleValidators },
   body: { type: String, required: true,  validate: bodyValidators },
-  createdBy: { type: String },
+  createdBy: {type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-  likedBy: { type: Array },
-  dislikedBy: { type: Array },
+  likedBy: [{type: Schema.Types.ObjectId, ref: 'User' }],
   comments: [
     {
       comment: { type: String },
-      createdBy: { type: String },
-      createdAt: { type: Date, default: Date.now }
+      commentBy: {type: Schema.Types.ObjectId, ref: 'User' },
+      commentAt: { type: Date, default: Date.now }
     }
   ]
 });

@@ -23,7 +23,7 @@
           <div *ngIf="post.likedBy.length > 0" class="dropdown-menu" id="dropdown-like" role="menu">
             <div class="dropdown-content has-text-left">
               <div *ngFor="let likeBy of post.likedBy" class="dropdown-item">
-                {{likeBy}}
+                {{likeBy.engName}}
               </div>
             </div>
           </div>
@@ -39,7 +39,7 @@
     <div class="card post">
       <header class="card-header">
         <p class="card-header-title">
-          Poster: {{post.createdBy}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
+          Poster: {{post.createdBy.engName}} - {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
         </p>
       </header>
       <div class="card-content">
@@ -51,7 +51,7 @@
     <div *ngFor="let comment of post.comments; let i=index" class="card post">
       <header class="card-header">
         <p class="card-header-title">
-          #{{i+1}} - {{comment.createdBy}} - {{ comment.createdAt | date:' dd/MM/yyyy HH:mm' }}
+          #{{i+1}} - {{comment.commentBy.engName}} - {{ comment.commentAt | date:' dd/MM/yyyy HH:mm' }}
         </p>
       </header>
       <div class="card-content">

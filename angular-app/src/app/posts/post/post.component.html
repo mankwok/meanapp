@@ -23,7 +23,7 @@
         <header class="card-header">
           <p class="card-header-title">
             {{post.title}}
-            <br/> By: {{post.createdBy}} - At: {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
+            <br/> By: {{post.createdBy.engName}} - At: {{ post.createdAt | date:' dd/MM/yyyy HH:mm' }}
           </p>
           <div class="card-header-icon" aria-label="Reply">
             <span class="icon">
