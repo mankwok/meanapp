@@ -1,3 +1,38 @@
-<p>
-  request-list works!
-</p>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-inline ">Service requests</h1>
+      </div>
+      <div class="column is-one-quarter has-text-right">
+        <button class="button is-link" routerLink="./create-service-request">
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+        </button>
+        <button [disabled]="isLoading" (click)="getServiceRequest()" class="button is-link">
+          <span class="icon">
+            <i class="fas fa-sync"></i>
+          </span>
+        </button>
+      </div>
+    </div>
+    <hr/>
+    <div *ngFor="let serviceRequest of serviceRequests" class="card post">
+      <header class="card-header">
+        <p class="card-header-title">
+          Request: #{{serviceRequest._id}} - Created At: {{ serviceRequest.createdAt | date:' dd/MM/yyyy HH:mm' }}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>
+            Item: {{serviceRequest.requestItem.name }}
+            <br/> Quantity: {{serviceRequest.quantity }}
+            <br/> Status: {{serviceRequest.status }}</p>
+          <p>Description: {{serviceRequest.requestDesc }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

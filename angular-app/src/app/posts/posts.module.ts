@@ -7,6 +7,10 @@ import { PostComponent } from './post/post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 
+import { PostService } from '../services/post.service';
+import { PostResolveService } from '../services/post-resolve.service';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +21,10 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     PostComponent, 
     CreatePostComponent,
     PostDetailComponent
-  ]
+  ],
+  providers: [
+    PostService,
+    PostResolveService
+  ],
 })
 export class PostsModule { }

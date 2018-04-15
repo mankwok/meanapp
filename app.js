@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, '/angular-app/dist/')));
 app.use('/api/authentication', authentication);
 app.use('/api/posts', posts);
 app.use('/api/profile', profile);
-app.use('/api/serviceRequest', serviceRequest);
+app.use('/api/serviceRequests', serviceRequest);
 app.use('/api/activities', activities);
 
 app.get('*', (req, res) => {

@@ -30,8 +30,6 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { AuthService } from './services/auth.service';
-import { PostService } from './services/post.service';
-import { PostResolveService } from './services/post-resolve.service';
 
 @NgModule({
   declarations: [
@@ -53,9 +51,7 @@ import { PostResolveService } from './services/post-resolve.service';
   providers: [
     AuthService,
     AuthGuard,
-    NotAuthGuard,
-    PostService,
-    PostResolveService
+    NotAuthGuard
   ],
   bootstrap: [AppComponent]
 })

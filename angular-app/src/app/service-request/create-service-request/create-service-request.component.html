@@ -1,0 +1,45 @@
+<section class="section">
+    <div class="container">
+      <h1 class="title">Create Service Request</h1>
+      <hr/>
+      <form [formGroup]="form">
+        <div class="field">
+          <label class="label" for="requestItem">Item</label>
+          <div class="control">
+              <div class="select" >
+                  <select id="requestItem" name="requestItem" formControlName="requestItem">
+                    <option *ngFor="let serviceRequestItem of serviceRequestItems" [value]="serviceRequestItem._id">
+                      {{serviceRequestItem.name}}
+                    </option>
+                  </select>
+                </div>
+          </div>
+        </div>
+        <div class="field">
+            <label class="label" for="requestDesc">Description</label>
+            <div class="control">
+                <textarea class="textarea" id="requestDesc" name="requestDesc" formControlName="requestDesc" placeholder="Description"></textarea>
+            </div>
+          </div>
+          <div class="field">
+              <label class="label"  for="quantity">Quantity</label>
+              <div class="control">
+                <div class="select" >
+                  <select id="quantity" name="quantity" formControlName="quantity">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+        <div class="control">
+          <button [disabled]="!form.valid || processing" (click)="onServiceRequestSubmit()" class="button is-primary" type="submit">Post</button>
+          <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  

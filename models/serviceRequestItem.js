@@ -5,11 +5,21 @@ const autoIncrement = require('mongoose-auto-increment');
 
 autoIncrement.initialize(mongoose.connection);
 
-const ServiceRequestItemSchema = new Schema({
+const serviceRequestItemSchema = new Schema({
   requestType: { type: String, required: true },
-  itemName: { type: String, required: true }
+  name: { type: String, required: true },
+  stock: { type: Number, required: true, default: 0 },
+  createdBy: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  modifiedBy: { type: String },
+  modifiedAt: { type: Date }
 });
 
-ServiceRequestItemSchema.plugin(autoIncrement.plugin, 'Service Request Item');
+serviceRequestItemSchema.pre('save', function(next) {
+  this.name = this.name[0].toUpperCase() + this.name.slice(1);
+  next();
+});
 
-module.exports = mongoose.model('Service Request Item', ServiceRequestItemSchema);
+serviceRequestItemSchema.plugin(autoIncrement.plugin, 'Service Request Item');
+
+module.exports = mongoose.model('Service Request Item', serviceRequestItemSchema);

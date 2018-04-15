@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceRequestService } from "../../services/service-request.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-request-list',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestListComponent implements OnInit {
 
-  constructor() { }
+  isLoading = false;
+  serviceRequests;
 
-  ngOnInit() {
+  constructor(
+    private authService: AuthService,
+    private serviceRequestService: ServiceRequestService
+  ) { }
+
+  getServiceRequest(){
+    this.isLoading = true;
+    this.serviceRequestService.getAllServiceRequests().subscribe(data => {
+      this.serviceRequests = data['serviceRequests'];
+      this.isLoading = false;
+    });
   }
 
+  ngOnInit() {
+    this.getServiceRequest();
+  }
 }
