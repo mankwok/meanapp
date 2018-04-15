@@ -27,7 +27,11 @@ router.post('/register', (req, res) => {
         let user = new User({
           email: req.body.email.toLowerCase(),
           username: req.body.username.toLowerCase(),
-          password: req.body.password
+          password: req.body.password,
+          engName: req.body.engName,
+          position: req.body.position,
+          department: req.body.department,
+          permission: req.body.permission
         });
         user.save(err => {
           if (err) {

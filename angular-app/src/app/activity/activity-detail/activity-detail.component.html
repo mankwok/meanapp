@@ -1,46 +1,51 @@
 <section class="section">
   <div class="container">
-    <h1 class="title is-inline ">Activity List</h1>
+    <h1 class="title is-inline ">Activity Detail</h1>
     <hr>
 
-    <div class="card post" *ngFor="let activity of activities">
-
+    <div class="card activity" *ngIf="activity">
       <header class="card-header">
         <p class="card-header-title">
           {{activity.name}}
         </p>
 
         <div class="column is-one-quarter has-text-right">
-            <button class="button is-link" (click)="addNotInterested(activity._id)">
-              <span class="icon">
-                <i class="far fa-meh"></i>
-              </span>
-            </button>
-
-          <button class="button is-link" [routerLink]="['./activity-detail/', activity._id]">
+          <button class="button is-link" (click)="addNotInterested(activity._id)">
             <span class="icon">
-              <i class="fas fa-info-circle"></i>
+              <i class="far fa-meh"></i>
             </span>
           </button>
 
-          <button class="button is-link" (click)="addBookmark(activity._id)">
+          <button class="button is-link" (click)="addBookmark()">
             <span class="icon">
-              <i class="far fa-bookmark"></i>
+              <i class=" {{ getBookmarkIconClass() }} "></i>
+            </span>
+          </button>
+
+          <button class="button is-link" (click)="joinActivity()">
+            <span class="icon">
+              <i class="fas fa-user-plus"></i>
             </span>
           </button>
         </div>
+
       </header>
+      <div class="card-content">
 
-      <a [routerLink]="['./activity-detail/', activity._id]">
-        <div class="card-content">
-          <div class="content">
-            <p>{{activity.startDate | date : "dd-MM-yyyy"}} to {{activity.endDate | date : "dd-MM-yyyy"}} at {{activity.venue}}
-            </p>
-          </div>
+        <div class="content">
+          {{activity.detail}}
+          <ul>
+            <li>Type: {{activity.type}}</li>
+            <li>Start Time: {{activity.startDate | date : "dd-MM-yyyy"}} </li>
+            <li>End Time: {{activity.endDate | date : "dd-MM-yyyy"}} </li>
+            <li>Venue: {{activity.venue}}</li>
+            <li>Vacancies: {{getActualVacanies()}} / {{activity.vacancies}}</li>
+            <li>Status: {{ getActivityStatus() }}</li>
+          </ul>
         </div>
-      </a>
-    </div>
+      </div>
 
+    </div>
   </div>
 </section>
 <!--

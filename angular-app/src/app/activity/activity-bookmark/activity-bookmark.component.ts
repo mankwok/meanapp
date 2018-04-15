@@ -3,12 +3,14 @@ import { ActivityService } from "../../services/activity.service";
 import { AuthService } from "../../services/auth.service";
 import { FlashMessagesService } from 'angular2-flash-messages';
 
+
 @Component({
-  selector: 'app-activity-list',
-  templateUrl: './activity-list.component.html',
-  styleUrls: ['./activity-list.component.css']
+  selector: 'app-activity-bookmark',
+  templateUrl: './activity-bookmark.component.html',
+  styleUrls: ['./activity-bookmark.component.css']
 })
-export class ActivityListComponent implements OnInit {
+export class ActivityBookmarkComponent implements OnInit {
+
   processing = false;
   isLoading = false;
   username;
@@ -42,18 +44,22 @@ export class ActivityListComponent implements OnInit {
     });
   }
 
-
-  getPost(){
+  getActivity(user_id){
     this.isLoading = true;
-    this.activityService.getAllActivities().subscribe(data => {
+    this.activityService.getBookmarkedActivities(user_id).subscribe(data => {
       this.activities = data['activity'];
       this.isLoading = false;
     });
   }
 
   ngOnInit() {
-    this.getPost();
-  }
+    this.authService.getProfile().subscribe(profile => {
+      this.username = profile['user']['username'];
+      console.log(this.username);
+      this.getActivity(this.username);
+    });
 
+
+  }
 
 }

@@ -1,0 +1,125 @@
+<section class="section">
+  <div class="container">
+
+    <h1 class="title">Create New Activity</h1>
+
+    <hr/>
+
+    <div *ngIf="postError" class="notification is-danger">{{errorMessage}}</div>
+
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label" for="name">Name</label>
+        <div class="control">
+          <input class="input" type="text" id="name" name="name" formControlName="name" placeholder="name">
+        </div>
+      </div>
+        
+      <div class="field">
+        <label class="label" for="type">Type</label>
+        <div class="control">
+          <textarea class="input" id="type" name="type" formControlName="type" placeholder="type"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="start_time">Start Time</label>
+        <div class="control">
+          <textarea class="input" id="start_time" name="start_time" formControlName="start_time" placeholder="start_time"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="end_time">End Time</label>
+        <div class="control">
+          <textarea class="input" id="end_time" name="end_time" formControlName="end_time" placeholder="end_time"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="venue">Venue</label>
+        <div class="control">
+          <textarea class="input" id="venue" name="venue" formControlName="venue" placeholder="venue"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="vacancies">Vacancies</label>
+        <div class="control">
+          <textarea class="input" id="vacancies" name="vacancies" formControlName="vacancies" placeholder="vacancies"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="detail">Detail</label>
+        <div class="control">
+          <textarea class="textarea" id="detail" name="detail" formControlName="detail" placeholder="detail"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="min_ppl">Minimum Participants</label>
+        <div class="control">
+          <textarea class="input" id="min_ppl" name="min_ppl" formControlName="min_ppl" placeholder="Minimum Participants"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+          <label class="label" for="applicationDeadline">Application Deadline</label>
+          <div class="control">
+            <textarea class="input" id="applicationDeadline" name="applicationDeadline" formControlName="applicationDeadline" placeholder="Application Deadline"></textarea>
+          </div>
+        </div>
+
+
+      <div class="control">
+        <button [disabled]="!form.valid || processing" (click)="onPostSubmit()" class="button is-primary" type="submit">Create</button>
+        <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+      </div>
+
+    </form>
+    <!-- 
+    <form [formGroup]="form">
+
+      <div class="control">
+        
+          <button [disabled]="!form.valid || processing" (click)="onPostSubmit()" class="button is-primary" type="submit">Create</button>
+        
+        <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+        
+      </div>
+
+    </form>
+    -->
+    <!--
+   <form [formGroup]="form">
+      <div class="field">
+        <label class="label" for="title">Name</label>
+        <div class="control">
+          <input class="input" type="text" id="title" name="title" formControlName="title" placeholder="Title">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="body">Body</label>
+        <div class="control">
+            <textarea class="textarea" id="body" name="body" formControlName="body" placeholder="Body"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+          <label class="label" for="body">Body</label>
+          <div class="control">
+              <textarea class="textarea" id="body" name="body" formControlName="body" placeholder="Body"></textarea>
+          </div>
+        </div>
+
+      <div class="control">
+        <button [disabled]="!form.valid || processing" (click)="onPostSubmit()" class="button is-primary" type="submit">Create</button>
+        <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+      </div>
+     
+    </form>
+     -->
+  </div>
+</section>

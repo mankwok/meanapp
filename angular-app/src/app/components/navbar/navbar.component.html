@@ -44,6 +44,12 @@
             <a (click)="closeDrawer()" class="navbar-item" routerLink="/activity/activity-create" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
               Create Activity
             </a>
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/activity/activity-bookmark" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+              Activity Bookmark
+            </a>
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/activity/activity-statistic" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+              Activity Statistic
+            </a>
           </div>
         </div>
         <div *ngIf="authService.loggedIn()" class="navbar-item has-dropdown is-hoverable">

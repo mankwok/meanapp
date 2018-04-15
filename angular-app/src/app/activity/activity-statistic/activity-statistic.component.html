@@ -1,0 +1,50 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-inline ">Activity Statistic</h1>
+    <hr>
+
+    <div class="card post" *ngFor="let activity of activities">
+
+        <a [routerLink]="['../activity-detail/', activity._id]">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{activity.name}}
+        </p>
+      </header>
+      </a>
+
+      
+        <div class="card-content">
+          <div class="content">
+
+            <div class="detail"  (click) = "getPost()">
+              <span class="icon">
+                <i class="far fa-meh"></i>
+              </span>
+              <p>{{activity.notInterestedUsers.length}}</p>
+            </div>
+
+            <div class="detail"  (click) = "getPost()">
+              <span class="icon">
+                <i class="fas fa-users"></i>
+              </span>
+              <p> {{ activity.participants.length }} / {{activity.vacancies}} </p>
+            </div>
+
+            <div class="detail"  (click) = "setUserList()">
+              <span class="icon">
+                <i class="fas fa-bookmark"></i>
+              </span>
+              <p>{{activity.bookmarkUsers.length}}</p>
+            </div>
+
+          </div>
+
+          <div class="content" *ngIf="userlist">
+              <p>sdfsdfsdfsd</p>
+          </div>
+        </div>
+    </div>
+
+  </div>
+</section>

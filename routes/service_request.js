@@ -78,7 +78,7 @@ router.get('/allForAdmin', (req, res) => {
 router.get('/requestItems', (req, res) => {
   ServiceRequestItem.find({})
   .populate('createdBy', 'engName')
-  .sort({ _id: -1 })
+  .sort({ name: 1 })
   .exec( (err, serviceRequestItems) => {
     if (err) {
       res.json({ success: false, message: err });
