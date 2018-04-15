@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         if (!user) {
           res.json({ succes: false, message: 'User not found' });
         } else {
-          Post.count({ createdBy: user.username }, function(err, c) {
+          Post.count({ createdBy: user._id }, function(err, c) {
             res.json({ success: true, user: user, postCount: c });
           });
         }
