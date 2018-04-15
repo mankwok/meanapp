@@ -7,6 +7,8 @@ import { RequestListComponent } from './request-list/request-list.component';
 import { CreateServiceRequestComponent } from './create-service-request/create-service-request.component';
 
 import { ServiceRequestService } from '../services/service-request.service';
+import { ApproveServiceRequestComponent } from './approve-service-request/approve-service-request.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { ServiceRequestService } from '../services/service-request.service';
   ],
   declarations: [
     RequestListComponent,
-    CreateServiceRequestComponent],
+    CreateServiceRequestComponent,
+    ApproveServiceRequestComponent,
+    DashboardComponent],
   providers: [
     ServiceRequestService
   ]

@@ -1,0 +1,31 @@
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-inline ">Service Request Items</h1>
+      </div>
+      <button [disabled]="isLoading" (click)="getServiceRequestItems()" class="button is-link">
+        <span class="icon">
+          <i class="fas fa-sync"></i>
+        </span>
+      </button>
+    </div>
+    <hr/>
+    <div *ngFor="let serviceRequestItem of serviceRequestItems" class="card post">
+      <header class="card-header">
+        <p class="card-header-title">
+          {{ serviceRequestItem.name }}
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="content">
+          <p>
+            Created At: {{ serviceRequestItem.createdAt | date:' dd/MM/yyyy HH:mm' }}
+            <br/> Stock: {{serviceRequestItem.stock }}
+            <br/> Created By: {{serviceRequestItem.createdBy.engName }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

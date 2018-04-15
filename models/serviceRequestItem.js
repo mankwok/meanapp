@@ -9,9 +9,9 @@ const serviceRequestItemSchema = new Schema({
   requestType: { type: String, required: true },
   name: { type: String, required: true },
   stock: { type: Number, required: true, default: 0 },
-  createdBy: { type: String, required: true },
+  createdBy: {type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-  modifiedBy: { type: String },
+  modifiedBy: {type: Schema.Types.ObjectId, ref: 'User' },
   modifiedAt: { type: Date }
 });
 

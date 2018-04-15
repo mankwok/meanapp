@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const Post = require('../models/post');
+const ServiceRequest = require('../models/serviceRequest');
 const config = require('../config/database');
 
 const userAuthMw = require('../middleware/user-auth-middleware');
@@ -18,8 +19,11 @@ router.get('/', (req, res) => {
         if (!user) {
           res.json({ succes: false, message: 'User not found' });
         } else {
-          Post.count({ createdBy: user._id }, function(err, c) {
-            res.json({ success: true, user: user, postCount: c });
+          Post.count({ createdBy: user._id }, function(err, p) {
+            ServiceRequest.count({ createdBy: user._id }, function(err, s) {
+              res.json({ success: true, user: user, postCount: p, serviceRequestCount: s });
+            });
+            
           });
         }
       }

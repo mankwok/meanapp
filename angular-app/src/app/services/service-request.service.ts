@@ -28,14 +28,32 @@ export class ServiceRequestService {
     );
   }
 
+  getServiceRequestItem() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'serviceRequests/requestItems', this.httpOptions);
+  }
+
   getAllServiceRequests() {
     this.createAuthenticationHeaders();
     return this.http.get(this.domain + 'serviceRequests/all', this.httpOptions);
   }
 
+  getAllServiceRequestsForAdmin() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'serviceRequests/allForAdmin', this.httpOptions);
+  }
+
   getAllServiceRequestItems() {
     this.createAuthenticationHeaders();
     return this.http.get(this.domain + 'serviceRequests/requestItems', this.httpOptions);
+  }
+
+  approveServiceRequest(id) {
+    this.createAuthenticationHeaders();
+    const serviceRequest = {
+      id: id
+    };
+    return this.http.put(this.domain + 'serviceRequests/approveServiceRequest', serviceRequest, this.httpOptions);
   }
   
 }

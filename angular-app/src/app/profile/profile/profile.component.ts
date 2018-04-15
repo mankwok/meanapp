@@ -9,13 +9,15 @@ import { AuthService } from "../../services/auth.service";
 export class ProfileComponent implements OnInit {
 
   user;
-  stat;
+  postCount;
+  serviceRequestCount;
   constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile['user'];
-      this.stat = profile['postCount'];
+      this.postCount = profile['postCount'];
+      this.serviceRequestCount = profile['serviceRequestCount'];
     });
 
   }

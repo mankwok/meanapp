@@ -92,7 +92,6 @@ export class CreateServiceRequestComponent implements OnInit {
     this.serviceRequestService.getAllServiceRequestItems().subscribe(data => {
       if (data['success']) {
         this.serviceRequestItems = data['serviceRequestItems'];
-        console.log(this.serviceRequestItems);
       }
     });
   }

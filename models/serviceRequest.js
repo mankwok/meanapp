@@ -11,14 +11,10 @@ const serviceRequestSchema = new Schema({
   requestDesc: { type: String, required: true },
   quantity: { type: Number },
   status: { type: String, default: 'NEW' },
-  createdBy: { type: String, required: true },
+  createdBy: {type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-  modifiedBy: { type: String},
-  modifiedAt: { type: Date },
-  approvedBy: { type: String },
+  approvedBy: {type: Schema.Types.ObjectId, ref: 'User' },
   approvedAt: { type: Date },
-  voidBy: { type: String },
-  voidAt: { type: Date }
 });
 
 serviceRequestSchema.plugin(autoIncrement.plugin, 'Service Request');

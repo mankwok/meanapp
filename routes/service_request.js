@@ -22,7 +22,7 @@ router.get('/all', (req, res) => {
       if (!user) {
         res.json({ success: false, message: 'User not found' });
       } else {
-        ServiceRequest.find({ createdBy: user.username })
+        ServiceRequest.find({ createdBy: user._id })
           .sort({ _id: -1 })
           .populate('requestItem', 'name')
           .exec(function(err, serviceRequests) {
@@ -44,8 +44,42 @@ router.get('/all', (req, res) => {
   });
 });
 
+router.get('/allForAdmin', (req, res) => {
+  User.findOne({ _id: req.decoded.userId }, (err, user) => {
+    if (err) {
+      res.json({ success: false, message: 'Invalid user id' });
+    } else {
+      if (!user) {
+        res.json({ success: false, message: 'User not found' });
+      } else {
+        ServiceRequest.find({})
+          .sort({ _id: -1 })
+          .populate('createdBy', 'engName')
+          .populate('requestItem', 'name')
+          .exec((err, serviceRequests) => {
+            if (err) {
+              res.json({ success: false, message: err });
+            } else {
+              if (!serviceRequests) {
+                res.json({
+                  success: false,
+                  message: 'No service request found'
+                });
+              } else {
+                res.json({ success: true, serviceRequests: serviceRequests });
+              }
+            }
+          });
+      }
+    }
+  });
+});
+
 router.get('/requestItems', (req, res) => {
-  ServiceRequestItem.find({}, (err, serviceRequestItems) => {
+  ServiceRequestItem.find({})
+  .populate('createdBy', 'engName')
+  .sort({ _id: -1 })
+  .exec( (err, serviceRequestItems) => {
     if (err) {
       res.json({ success: false, message: err });
     } else {
@@ -58,7 +92,7 @@ router.get('/requestItems', (req, res) => {
         res.json({ success: true, serviceRequestItems: serviceRequestItems });
       }
     }
-  }).sort({ _id: -1 });
+  })
 });
 
 router.post('/newServiceRequest', (req, res) => {
@@ -101,7 +135,7 @@ router.post('/newServiceRequest', (req, res) => {
                         requestItem: requestItem._id,
                         requestDesc: req.body.requestDesc,
                         quantity: req.body.quantity,
-                        createdBy: user.username
+                        createdBy: user._id
                       });
                       serviceRequest.save(err => {
                         if (err) {
@@ -125,48 +159,87 @@ router.post('/newServiceRequest', (req, res) => {
   }
 });
 
-router.post('/setServiceRequestStatus', (req, res) => {
+router.put('/approveServiceRequest', (req, res) => {
   if (!req.body.id) {
     res.json({ success: false, message: 'No service request inputted' });
   } else {
-    if (!req.body.status) {
-      res.json({ success: false, message: 'No status inputted' });
-    } else {
-      ServiceRequest.findOne({ _id: req.body.id }, (err, serviceRequest) => {
-        if (err) {
-          res.json({ success: false, message: 'Invalid service request id' });
-        } else {
-          User.findOne({ _id: req.decoded.userId }, (err, user) => {
-            if (err) {
-              res.json({ success: false, message: 'Invalid user id' });
+    ServiceRequest.findOne({ _id: req.body.id }, (err, serviceRequest) => {
+      if (err) {
+        res.json({ success: false, message: 'Invalid service request id' });
+      } else {
+        User.findOne({ _id: req.decoded.userId }, (err, user) => {
+          if (err) {
+            res.json({ success: false, message: 'Invalid user id' });
+          } else {
+            if (!user) {
+              res.json({ success: false, message: 'User not found' });
             } else {
-              if (!user) {
-                res.json({ success: false, message: 'User not found' });
-              } else {
-                ServiceRequestItem.findOne(
-                  { _id: serviceRequest.itemID },
-                  (err, serviceRequestItem) => {
-                    if (err) {
+              ServiceRequestItem.findOne(
+                { _id: serviceRequest.requestItem },
+                (err, serviceRequestItem) => {
+                  if (err) {
+                    res.json({
+                      success: false,
+                      message: 'Invalid request item id'
+                    });
+                  } else {
+                    if (!serviceRequestItem) {
                       res.json({
                         success: false,
                         message: 'Invalid request item id'
                       });
                     } else {
-                      if (
-                        serviceRequestItem.requestType != 'O' &&
-                        req.body.status == 'APL'
-                      ) {
-                        if (
-                          serviceRequestItem.stock - serviceRequest.quantity <
-                          0
-                        ) {
-                          res.json({
-                            success: false,
-                            message: 'Not enough stock to spprove'
-                          });
+                      if (serviceRequest.status == 'APL') {
+                        res.json({
+                          success: false,
+                          message: 'Request is already approved'
+                        });
+                      } else {
+                        if (serviceRequest.requestType != 'O') {
+                          if (
+                            serviceRequestItem.stock - serviceRequest.quantity <
+                            0
+                          ) {
+                            res.json({
+                              success: false,
+                              message: 'Not enough stock to approve'
+                            });
+                          } else {
+                            serviceRequestItem.stock =
+                              serviceRequestItem.stock -
+                              serviceRequest.quantity;
+                            serviceRequestItem.save(err => {
+                              if (err) {
+                                res.json({
+                                  success: false,
+                                  message:
+                                    'Something went wrong in update stock'
+                                });
+                              } else {
+                                serviceRequest.status = 'APL';
+                                serviceRequest.approvedBy = user._id;
+                                serviceRequest.approvedAt = new Date();
+                                serviceRequest.save(err => {
+                                  if (err) {
+                                    res.json({
+                                      success: false,
+                                      message: 'Something went wrong'
+                                    });
+                                  } else {
+                                    res.json({
+                                      success: true,
+                                      message:
+                                        'Request approved and quantity is deducted'
+                                    });
+                                  }
+                                });
+                              }
+                            });
+                          }
                         } else {
-                          serviceRequestItem.stock =
-                            serviceRequestItem.stock - serviceRequest.quantity;
+                          serviceRequest.status = 'APL';
+                          serviceRequest.approvedBy = user._id;
+                          serviceRequest.approvedAt = new Date();
                           serviceRequest.save(err => {
                             if (err) {
                               res.json({
@@ -176,8 +249,7 @@ router.post('/setServiceRequestStatus', (req, res) => {
                             } else {
                               res.json({
                                 success: true,
-                                message:
-                                  'Request approved and quantity is deducted'
+                                message: 'Request approved for type other'
                               });
                             }
                           });
@@ -185,13 +257,13 @@ router.post('/setServiceRequestStatus', (req, res) => {
                       }
                     }
                   }
-                );
-              }
+                }
+              );
             }
-          });
-        }
-      });
-    }
+          }
+        });
+      }
+    });
   }
 });
 
@@ -219,7 +291,7 @@ router.post('/newServiceRequestItem', (req, res) => {
                   requestType: req.body.requestType.toUpperCase(),
                   name: req.body.name,
                   stock: req.body.stock,
-                  createdBy: user.username
+                  createdBy: user._id
                 });
                 requestItem.save(err => {
                   if (err) {

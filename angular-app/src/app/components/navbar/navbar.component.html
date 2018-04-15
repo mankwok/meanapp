@@ -22,11 +22,15 @@
             Service Request
           </a>
           <div class="navbar-dropdown">
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request/dashboard" routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{exact: true}">
+              Dashboard
+            </a>
             <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request/create-service-request" routerLinkActive="is-active"
               [routerLinkActiveOptions]="{exact: true}">
               Create Service Request
             </a>
-            <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request" routerLinkActive="is-active" routerLinkActive="is-active"
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request/approve-service-request" routerLinkActive="is-active" routerLinkActive="is-active"
               [routerLinkActiveOptions]="{exact: true}">
               Approve Service Request
             </a>
