@@ -1,10 +1,10 @@
-<nav class="navbar is-fixed-top is-link">
+<nav class="navbar is-fixed-top is-link" role="navigation" aria-label="dropdown navigation">
   <div class="container">
     <div class="navbar-brand">
       <a (click)="closeDrawer()" class="navbar-item brand-text" href="" routerLink="/">
         Kwok's Intranet
       </a>
-      <div (click)="onBurgerClick()" class= "navbar-burger" id="burger-btn" [ngClass]="{'is-active': expend}" data-target="navbar">
+      <div (click)="onBurgerClick()" class="navbar-burger" id="burger-btn" [ngClass]="{'is-active': expend}" data-target="navbar">
         <span></span>
         <span></span>
         <span></span>
@@ -13,11 +13,45 @@
 
     <div id="navbar" class="navbar-menu" [ngClass]="{'is-active': expend}">
       <div class="navbar-start">
-        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/" routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/profile" routerLinkActive="is-active">Profile</a>
-        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/service-request" routerLinkActive="is-active">Service Request</a>
-        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/activity" routerLinkActive="is-active">Activity</a>
-        <a *ngIf="authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/posts" routerLinkActive="is-active">Posts</a>
+
+        <div *ngIf="authService.loggedIn()" class="navbar-item has-dropdown is-hoverable">
+          <a (click)="closeDrawer()" class="navbar-link" routerLink="/service-request" routerLinkActive="is-active">
+            Service Request
+          </a>
+          <div class="navbar-dropdown">
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request/create-service-request" routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{exact: true}">
+              Create Service Request
+            </a>
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/service-request" routerLinkActive="is-active" routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{exact: true}">
+              Approve Service Request
+            </a>
+          </div>
+        </div>
+        <div *ngIf="authService.loggedIn()" class="navbar-item has-dropdown is-hoverable">
+          <a (click)="closeDrawer()" class="navbar-link" routerLink="/activity" routerLinkActive="is-active">
+            Activity
+          </a>
+          <div class="navbar-dropdown">
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/activity/activity-create" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+              Create Activity
+            </a>
+          </div>
+        </div>
+        <div *ngIf="authService.loggedIn()" class="navbar-item has-dropdown is-hoverable">
+          <a (click)="closeDrawer()" class="navbar-link" routerLink="/posts" routerLinkActive="is-active">
+            Posts
+          </a>
+          <div class="navbar-dropdown">
+            <a (click)="closeDrawer()" class="navbar-item" routerLink="/posts/compose-post" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+              Compose Post
+            </a>
+          </div>
+        </div>
         <a *ngIf="!authService.loggedIn()" (click)="closeDrawer()" class="navbar-item" href="" routerLink="/login" routerLinkActive="is-active">Login</a>
         <a *ngIf="authService.loggedIn()" (click)="onLogOutClick()" class="navbar-item" href="">Logout</a>
       </div>
