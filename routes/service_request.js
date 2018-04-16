@@ -77,22 +77,150 @@ router.get('/allForAdmin', (req, res) => {
 
 router.get('/requestItems', (req, res) => {
   ServiceRequestItem.find({})
-  .populate('createdBy', 'engName')
-  .sort({ name: 1 })
-  .exec( (err, serviceRequestItems) => {
-    if (err) {
-      res.json({ success: false, message: err });
-    } else {
-      if (!serviceRequestItems) {
-        res.json({
-          success: false,
-          serviceRequestItem: 'No request item found'
-        });
+    .populate('createdBy', 'engName')
+    .populate('modifiedBy', 'engName')
+    .sort({ name: 1 })
+    .exec((err, serviceRequestItems) => {
+      if (err) {
+        res.json({ success: false, message: err });
       } else {
-        res.json({ success: true, serviceRequestItems: serviceRequestItems });
+        if (!serviceRequestItems) {
+          res.json({
+            success: false,
+            serviceRequestItem: 'No request item found'
+          });
+        } else {
+          res.json({ success: true, serviceRequestItems: serviceRequestItems });
+        }
+      }
+    });
+});
+
+router.get('/requestItem/:id', (req, res) => {
+  ServiceRequestItem.findOne({ _id: req.params.id })
+    .populate('createdBy', 'engName')
+    .sort({ name: 1 })
+    .exec((err, serviceRequestItem) => {
+      if (err) {
+        res.json({ success: false, message: err });
+      } else {
+        if (!serviceRequestItem) {
+          res.json({
+            success: false,
+            serviceRequestItem: 'No request item found'
+          });
+        } else {
+          res.json({ success: true, serviceRequestItem: serviceRequestItem });
+        }
+      }
+    });
+});
+
+router.post('/newServiceRequestItem', (req, res) => {
+  if (!req.body.requestType) {
+    res.json({ success: false, message: 'No request type inputted' });
+  } else {
+    if (!req.body.name) {
+      res.json({ success: false, message: 'No name inputted' });
+    } else {
+      if (!req.body.stock) {
+        res.json({ success: false, message: 'No stock inputted' });
+      } else {
+        if (req.body.stock < 0) {
+          res.json({ success: false, message: 'Stock cannot be negative' });
+        } else {
+          User.findOne({ _id: req.decoded.userId }, (err, user) => {
+            if (err) {
+              res.json({ success: false, message: 'Invalid user id' });
+            } else {
+              if (!user) {
+                res.json({ success: false, message: 'User not found' });
+              } else {
+                ServiceRequestItem.findOne(
+                  { name: req.body.name.toLowerCase() },
+                  (err, serviceRequestItem) => {
+                    if (err) {
+                      res.json({
+                        success: false,
+                        message: 'Error in getting item'
+                      });
+                    } else {
+                      if (serviceRequestItem) {
+                        res.json({
+                          success: false,
+                          message: 'Item already exist'
+                        });
+                      } else {
+                        let requestItem = new ServiceRequestItem({
+                          requestType: req.body.requestType.toUpperCase(),
+                          name: req.body.name,
+                          stock: req.body.stock,
+                          createdBy: user._id
+                        });
+                        requestItem.save(err => {
+                          if (err) {
+                            res.json({ success: false, message: err.errors });
+                          } else {
+                            res.json({
+                              success: true,
+                              message: 'Request item created'
+                            });
+                          }
+                        });
+                      }
+                    }
+                  }
+                );
+              }
+            }
+          });
+        }
       }
     }
-  })
+  }
+});
+
+router.put('/setRequestItemStock', (req, res) => {
+  if (req.body.stock < 0) {
+    res.json({ success: false, message: 'Stock cannot be negative' });
+  } else {
+    if (!req.body.id) {
+      res.json({ success: false, message: 'No item id' });
+    } else {
+      ServiceRequestItem.findOne(
+        { _id: req.body.id },
+        (err, serviceRequestItem) => {
+          if (err) {
+            res.json({ success: false, message: 'Invalid request item id' });
+          } else {
+            User.findOne({ _id: req.decoded.userId }, (err, user) => {
+              if (err) {
+                res.json({ success: false, message: 'Invalid user id' });
+              } else {
+                if (!user) {
+                  res.json({ success: false, message: 'User not found' });
+                } else {
+                  serviceRequestItem.stock = req.body.stock;
+                  serviceRequestItem.modifiedBy = user._id;
+                  serviceRequestItem.modifiedAt = new Date();
+                  serviceRequestItem.save(err => {
+                    if (err) {
+                      res.json({
+                        success: false,
+                        message: 'Something went wrong'
+                      });
+                    } else {
+                      res.json({ success: true, message: 'Stock updated' });
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      );
+    }
+  }
 });
 
 router.post('/newServiceRequest', (req, res) => {
@@ -264,95 +392,6 @@ router.put('/approveServiceRequest', (req, res) => {
         });
       }
     });
-  }
-});
-
-router.post('/newServiceRequestItem', (req, res) => {
-  if (!req.body.requestType) {
-    res.json({ success: false, message: 'No request type inputted' });
-  } else {
-    if (!req.body.name) {
-      res.json({ success: false, message: 'No name inputted' });
-    } else {
-      if (!req.body.stock) {
-        res.json({ success: false, message: 'No stock inputted' });
-      } else {
-        if (req.body.stock < 0) {
-          res.json({ success: false, message: 'Stock cannot be negative' });
-        } else {
-          User.findOne({ _id: req.decoded.userId }, (err, user) => {
-            if (err) {
-              res.json({ success: false, message: 'Invalid user id' });
-            } else {
-              if (!user) {
-                res.json({ success: false, message: 'User not found' });
-              } else {
-                let requestItem = new ServiceRequestItem({
-                  requestType: req.body.requestType.toUpperCase(),
-                  name: req.body.name,
-                  stock: req.body.stock,
-                  createdBy: user._id
-                });
-                requestItem.save(err => {
-                  if (err) {
-                    res.json({ success: false, message: err.errors });
-                  } else {
-                    res.json({ success: true, message: 'Reques item created' });
-                  }
-                });
-              }
-            }
-          });
-        }
-      }
-    }
-  }
-});
-
-router.put('/setItemStock', (req, res) => {
-  if (!req.body.stock) {
-    res.json({ success: false, message: 'No stock inputted' });
-  } else {
-    if (req.body.stock < 0) {
-      res.json({ success: false, message: 'Stock cannot be negative' });
-    } else {
-      if (!req.body.id) {
-        res.json({ success: false, message: 'No item id' });
-      } else {
-        ServiceRequestItem.findOne(
-          { _id: req.body.id },
-          (err, serviceRequestItem) => {
-            if (err) {
-              res.json({ success: false, message: 'Invalid request item id' });
-            } else {
-              User.findOne({ _id: req.decoded.userId }, (err, user) => {
-                if (err) {
-                  res.json({ success: false, message: 'Invalid user id' });
-                } else {
-                  if (!user) {
-                    res.json({ success: false, message: 'User not found' });
-                  } else {
-                    serviceRequestItem.stock = req.body.stock;
-                    serviceRequestItem.modifiedBy = user.username;
-                    serviceRequestItem.modifiedAt = new Date();
-                    serviceRequestItem.save(err => {
-                      if (err) {
-                        res.json({
-                          success: false,
-                          message: 'Something went wrong'
-                        });
-                      } else {
-                        res.json({ success: true, message: 'Stock updated' });
-                      }
-                    });
-                  }
-                }
-              });
-            }
-          }
-        );
-      }
-    }
   }
 });
 

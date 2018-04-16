@@ -28,9 +28,18 @@ export class ServiceRequestService {
     );
   }
 
-  getServiceRequestItem() {
+  newServiceRequestItem(serviceRequestItem) {
     this.createAuthenticationHeaders();
-    return this.http.get(this.domain + 'serviceRequests/requestItems', this.httpOptions);
+    return this.http.post(
+      this.domain + 'serviceRequests/newServiceRequestItem',
+      serviceRequestItem,
+      this.httpOptions
+    );
+  }
+
+  getServiceRequestItem(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'serviceRequests/requestItem/' + id, this.httpOptions);
   }
 
   getAllServiceRequests() {
@@ -54,6 +63,15 @@ export class ServiceRequestService {
       id: id
     };
     return this.http.put(this.domain + 'serviceRequests/approveServiceRequest', serviceRequest, this.httpOptions);
+  }
+
+  setServicetRequestItemStock(itemID, stock) {
+    this.createAuthenticationHeaders();
+    const editRequest = {
+      id: itemID,
+      stock: stock
+    };
+    return this.http.put(this.domain + 'serviceRequests/setRequestItemStock', editRequest, this.httpOptions);
   }
   
 }

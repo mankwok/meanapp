@@ -7,8 +7,12 @@ import { RequestListComponent } from './request-list/request-list.component';
 import { CreateServiceRequestComponent } from './create-service-request/create-service-request.component';
 
 import { ServiceRequestService } from '../services/service-request.service';
+import { RequestItemResolveService } from '../services/request-item-resolve.service';
+
 import { ApproveServiceRequestComponent } from './approve-service-request/approve-service-request.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateServiceRequestItemComponent } from './create-service-request-item/create-service-request-item.component';
+import { EditServiceRequestItemComponent } from './edit-service-request-item/edit-service-request-item.component';
 
 @NgModule({
   imports: [
@@ -20,9 +24,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RequestListComponent,
     CreateServiceRequestComponent,
     ApproveServiceRequestComponent,
-    DashboardComponent],
+    DashboardComponent,
+    CreateServiceRequestItemComponent,
+    EditServiceRequestItemComponent],
   providers: [
-    ServiceRequestService
+    ServiceRequestService,
+    RequestItemResolveService
   ]
 })
 export class ServiceRequestModule {}

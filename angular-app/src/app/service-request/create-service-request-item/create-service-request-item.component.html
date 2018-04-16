@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Create Service Request Item</h1>
+    <hr/>
+    <div *ngIf="createError" class="notification is-danger">{{errorMessage}}</div>
+    <form [formGroup]="form">
+      <div class="field">
+        <label class="label" for="name">Item Name</label>
+        <div class="control">
+          <input class="input" type="text" id="name" name="name" formControlName="name" placeholder="Item Name">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="stock">Stock</label>
+        <div class="control">
+            <input class="input" type="number" id="stock" name="stock" formControlName="stock" placeholder="Stock">
+        </div>
+      </div>
+      <div class="control">
+        <button [disabled]="!form.valid || processing" (click)="onItemSubmit()" class="button is-primary" type="submit">Submit</button>
+        <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+      </div>
+    </form>
+  </div>
+</section>

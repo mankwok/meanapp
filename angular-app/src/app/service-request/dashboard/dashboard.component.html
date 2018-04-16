@@ -4,28 +4,43 @@
       <div class="column">
         <h1 class="title is-inline ">Service Request Items</h1>
       </div>
-      <button [disabled]="isLoading" (click)="getServiceRequestItems()" class="button is-link">
-        <span class="icon">
-          <i class="fas fa-sync"></i>
-        </span>
-      </button>
-    </div>
-    <hr/>
-    <div *ngFor="let serviceRequestItem of serviceRequestItems" class="card post">
-      <header class="card-header">
-        <p class="card-header-title">
-          {{ serviceRequestItem.name }}
-        </p>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          <p>
-            Created At: {{ serviceRequestItem.createdAt | date:' dd/MM/yyyy HH:mm' }}
-            <br/> Stock: {{serviceRequestItem.stock }}
-            <br/> Created By: {{serviceRequestItem.createdBy.engName }}
-          </p>
-        </div>
+      <div class="column is-one-quarter has-text-right">
+        <button class="button is-link" routerLink="../create-service-request-item">
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+        </button>
+        <button [disabled]="isLoading" (click)="getServiceRequestItems()" class="button is-link">
+          <span class="icon">
+            <i class="fas fa-sync"></i>
+          </span>
+        </button>
       </div>
     </div>
+    <hr/>
+    <a [routerLink]="['/service-request/edit-service-request-item', serviceRequestItem._id]" *ngFor="let serviceRequestItem of serviceRequestItems">
+      <div class="card post">
+        <header class="card-header">
+          <p class="card-header-title">
+            {{ serviceRequestItem.name }}
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <p>
+              Stock: {{serviceRequestItem.stock }}
+            </p>
+            <p>
+              Created At: {{ serviceRequestItem.createdAt | date:' dd/MM/yyyy HH:mm' }}
+              <br/> Created By: {{serviceRequestItem.createdBy.engName }}
+            </p>
+            <p>
+              Modified At: {{ serviceRequestItem.modifiedAt?(serviceRequestItem.modifiedAt | date:' dd/MM/yyyy HH:mm') : 'N/A' }}
+              <br/> Modified By: {{serviceRequestItem.modifiedBy?(serviceRequestItem.modifiedBy.engName) : 'N/A' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </a>
   </div>
 </section>

@@ -1,0 +1,21 @@
+<section class="section">
+    <div class="container">
+      <h1 class="title">Edit Service Request Item - {{this.serviceRequestItem.name}}</h1>
+      <hr/>
+      <div *ngIf="editError" class="notification is-danger">{{errorMessage}}</div>
+      <form [formGroup]="form">
+        <div class="field">
+          <label class="label" for="stock">Stock</label>
+          <div class="control">
+              <input class="input" type="number" id="stock" name="stock" formControlName="stock" placeholder="Stock">
+          </div>
+        </div>
+        <div class="control">
+          <button [disabled]="!form.valid || processing" (click)="onEdit()" class="button is-primary" type="submit">Edit</button>
+          <button [disabled]="processing" (click)="goBack()" class="button is-warning">Back</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  
+
