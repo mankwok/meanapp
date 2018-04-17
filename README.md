@@ -5,16 +5,14 @@ This is an application to simulate a company intranet using MongoDB, Express.js,
 Functinos provided in the application:
 1. User authentication
 2. Backend user registration
-3. ...
+3. Forum
+4. Manage rquest items
+5. Activity management 
 
-## Todo
-Todo list:
-1. Profile page
-2. User permission control 
-3. Post creation
-4. Post reading
-5. Post update
-6. Post delete
+## Environment
+1. NodeJs
+2. Angular 2+
+3. MongoDB
 
 ## Installation
 1. Clone the repo and install dependencies of API server:
