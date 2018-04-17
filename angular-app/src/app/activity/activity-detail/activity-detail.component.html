@@ -32,8 +32,8 @@
           {{activity.detail}}
           <ul>
             <li>Type: {{activity.type}}</li>
-            <li>Start Time: {{activity.startDate | date : "dd-MM-yyyy"}} </li>
-            <li>End Time: {{activity.endDate | date : "dd-MM-yyyy"}} </li>
+            <li>Start Time: {{activity.startDate | date : "dd-MM-yyyy HH:mm"}} </li>
+            <li>End Time: {{activity.endDate | date : "dd-MM-yyyy HH:mm"}} </li>
             <li>Venue: {{activity.venue}}</li>
             <li>Vacancies: {{getActualVacanies()}} / {{activity.vacancies}}</li>
             <li>Status: {{ getActivityStatus() }}</li>
