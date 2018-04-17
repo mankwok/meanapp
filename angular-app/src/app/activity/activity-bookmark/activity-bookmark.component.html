@@ -2,43 +2,33 @@
   <div class="container">
     <h1 class="title is-inline ">Bookmarked Activity List</h1>
     <hr>
-
     <div class="card post" *ngFor="let activity of activities">
-
       <header class="card-header">
         <p class="card-header-title">
-          {{activity.name}}
+          <a [routerLink]="['../activity-detail/', activity._id]"> {{activity.name}}</a>
         </p>
         <div class="column is-one-quarter has-text-right">
           <button class="button is-link" (click)="addNotInterested(activity._id)">
             <span class="icon">
-              <i class="far fa-meh"></i>
+              <i class="fas fa-thumbs-down"></i>
             </span>
           </button>
-
-          <button class="button is-link" [routerLink]="['../activity-detail/', activity._id]">
-            <span class="icon">
-              <i class="fas fa-info-circle"></i>
-            </span>
-          </button>
-
           <button class="button is-link" (click)="addBookmark(activity._id)">
             <span class="icon">
-              <i class="far fa-bookmark"></i>
+              <i class="fas fa-bookmark"></i>
             </span>
           </button>
         </div>
       </header>
-
-      <a [routerLink]="['../activity-detail/', activity._id]">
-        <div class="card-content">
-          <div class="content">
-            <p>{{activity.startDate | date : "dd-MM-yyyy"}} to {{activity.endDate | date : "dd-MM-yyyy"}} at {{activity.venue}}
-            </p>
-          </div>
+      <div class="card-content">
+        <div class="content">
+          <p>
+            Start Date: {{activity.startDate | date : "dd-MM-yyyy "}}
+            <br/>End Date: {{activity.endDate | date : "dd-MM-yyyy"}}
+            <br/>Venue: {{activity.venue}}
+          </p>
         </div>
-      </a>
+      </div>
     </div>
-
   </div>
 </section>

@@ -5,11 +5,6 @@
           <h1 class="title is-inline ">Approve Service Request</h1>
         </div>
         <div class="column is-one-quarter has-text-right">
-          <button class="button is-link" routerLink="./">
-            <span class="icon">
-              <i class="fas fa-plus"></i>
-            </span>
-          </button>
           <button [disabled]="isLoading" (click)="getServiceRequest()" class="button is-link">
             <span class="icon">
               <i class="fas fa-sync"></i>

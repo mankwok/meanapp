@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'activity-create',
     component: ActivityCreateComponent,
-    data: { title: 'Activity' },
+    data: { title: 'Create New Activity' },
   },
   {
     path: 'activity-detail/:id',
@@ -29,20 +29,13 @@ const routes: Routes = [
   {
     path: 'activity-bookmark',
     component: ActivityBookmarkComponent,
-    data: { title: 'Activity' }
+    data: { title: 'Activity Bookmark' }
   },
   {
     path: 'activity-statistic',
     component: ActivityStatisticComponent,
-    data: { title: 'Activity' }
+    data: { title: 'Activity Statistic' }
   }
-  /*
-  {
-    path: 'activity-detail',
-    
-    data: { title: 'Activity' },
-  }
-  */
 ];
 
 @NgModule({

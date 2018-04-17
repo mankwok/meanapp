@@ -2,26 +2,22 @@
   <div class="container">
     <h1 class="title is-inline ">Activity Detail</h1>
     <hr>
-
     <div class="card activity" *ngIf="activity">
       <header class="card-header">
         <p class="card-header-title">
           {{activity.name}}
         </p>
-
         <div class="column is-one-quarter has-text-right">
           <button class="button is-link" (click)="addNotInterested(activity._id)">
             <span class="icon">
-              <i class="far fa-meh"></i>
+              <i class="fas fa-thumbs-down"></i>
             </span>
           </button>
-
           <button class="button is-link" (click)="addBookmark()">
             <span class="icon">
-              <i class=" {{ getBookmarkIconClass() }} "></i>
+              <i class="fas fa-bookmark"></i>
             </span>
           </button>
-
           <button class="button is-link" (click)="joinActivity()">
             <span class="icon">
               <i class="fas fa-user-plus"></i>
